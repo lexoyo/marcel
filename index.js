@@ -23,3 +23,4 @@ cmd.stdout.on('data', function (data) {
   const phrase = data.toString();
   speaker.say(phrase);
 });
+speaker.say("Starting");
