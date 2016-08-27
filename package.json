@@ -1,0 +1,19 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mic.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "make-prop-stream": "^1.0.0",
+    "randomvoice": "0.0.0",
+    "request": "^2.73.0",
+    "speaker": "^0.3.0",
+    "speech-stream": "^1.0.0",
+    "stream-array": "^1.1.2",
+    "wav": "^1.0.0"
+  }
+}
