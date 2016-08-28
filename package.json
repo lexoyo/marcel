@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node .",
     "build": "./build.sh",
-    "listen": "./listen -inmic yes -logfn /dev/null -continuous yes",
-    "listen:sentences": "./listen -inmic yes -logfn /dev/null -continuous yes -lm sentences/2277.lm -dict sentences/2277.dic"
+    "listen": "./listen -inmic yes -logfn /dev/null -continuous no",
+    "listen:sentences": "./listen -inmic yes -logfn /dev/null -continuous no -lm sentences/2277.lm -dict sentences/2277.dic"
   },
   "author": "",
   "license": "ISC",
