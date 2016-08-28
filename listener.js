@@ -1,15 +1,11 @@
-// start process with listen C program
-const util  = require('util');
 const spawn = require('child_process').spawn;
 const speaker = require('./speaker').speaker;
 
 
-function listen(prompt) {
-  if(prompt) {
-    speaker.say("speak now", listen);
-  }
-  else {
-    const cmd    = spawn('npm', ['run', 'listen:sentences']);
+const listener = {
+  start: function start(onHeard) {
+    // start process with listen C program
+    const cmd    = spawn('npm', ['run', 'listen']);
 
     cmd.stdout.on('data', function (data) {
       const phrase = data.toString();
@@ -32,18 +28,12 @@ function listen(prompt) {
         // npm logs
         console.log('do not say', phrase);
       }
-      else if(phrase === '') {
-        listen(false);
-      }
       else {
-        console.log('xxx', phrase)
-        speaker.say(phrase, function() {
-          listen(true);
+        onHeard(phrase, function() {
+          start(onHeard);
         });
       }
     });
   }
 }
-speaker.say("Mean talker starting...", function() {
-  listen(true);
-});
+exports.listener = listener;

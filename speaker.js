@@ -1,8 +1,8 @@
-var forceSpeed = 130;
 var streamArray = require("stream-array");
 var makeProp = require("make-prop-stream");
 var speechStream = require("speech-stream");
 
+// var forceSpeed = 130;
 // var randomvoice = require("randomvoice")();
 // randomvoice.speed = forceSpeed || randomvoice.speed;
 const randomvoice = {
@@ -36,6 +36,3 @@ const speaker = {
 }
 
 exports.speaker = speaker;
-
-
-
