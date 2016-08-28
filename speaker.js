@@ -2,9 +2,16 @@ var forceSpeed = 130;
 var streamArray = require("stream-array");
 var makeProp = require("make-prop-stream");
 var speechStream = require("speech-stream");
-var randomvoice = require("randomvoice")();
-randomvoice.speed = forceSpeed || randomvoice.speed;
 
+// var randomvoice = require("randomvoice")();
+// randomvoice.speed = forceSpeed || randomvoice.speed;
+const randomvoice = {
+  variant: 'm4',
+  wordgap: 1,
+  speed: 130,
+  pitch: 100,
+  amplitude: 92
+}
 
 const speaker = {
   say: function(phrase, cbk) {
@@ -20,7 +27,7 @@ const speaker = {
     reader.on('end', function () {
       if(cbk) cbk();
     });
-    // console.log('random voice options: ', randomvoice, forceSpeed);
+    console.log('random voice options: ', randomvoice);
     streamArray([phrase])
     .pipe(makeProp("message"))
     .pipe(speechStream(randomvoice))
