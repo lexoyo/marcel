@@ -17,7 +17,7 @@ const speaker = {
       // the WAVE header is stripped from the output of the reader
       reader.pipe(new Speaker(format));
     });
-    console.log('random voice options: ', randomvoice, forceSpeed);
+    // console.log('random voice options: ', randomvoice, forceSpeed);
     streamArray([phrase])
     .pipe(makeProp("message"))
     .pipe(speechStream(randomvoice))

@@ -1,0 +1,53 @@
+Language model created by QuickLM on Sat Aug 27 08:02:57 EDT 2016
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 4 sentences and 9 words
+
+\data\
+ngram 1=9
+ngram 2=11
+ngram 3=10
+
+\1-grams:
+-0.9542 </s> -0.3010
+-0.9542 <s> -0.2218
+-1.5563 ARE -0.2888
+-1.5563 BIG -0.2888
+-1.5563 GUY -0.2499
+-1.2553 HELLO -0.2499
+-1.5563 HOW -0.2888
+-1.0792 MARCEL -0.2499
+-1.5563 YOU -0.2632
+
+\2-grams:
+-0.6021 <s> HELLO 0.0000
+-0.9031 <s> HOW 0.0000
+-0.9031 <s> MARCEL 0.0000
+-0.3010 ARE YOU 0.0000
+-0.3010 BIG GUY 0.0000
+-0.3010 GUY </s> -0.3010
+-0.6021 HELLO BIG 0.0000
+-0.6021 HELLO MARCEL 0.0000
+-0.3010 HOW ARE 0.0000
+-0.3010 MARCEL </s> -0.3010
+-0.3010 YOU MARCEL 0.0000
+
+\3-grams:
+-0.6021 <s> HELLO BIG
+-0.6021 <s> HELLO MARCEL
+-0.3010 <s> HOW ARE
+-0.3010 <s> MARCEL </s>
+-0.3010 ARE YOU MARCEL
+-0.3010 BIG GUY </s>
+-0.3010 HELLO BIG GUY
+-0.3010 HELLO MARCEL </s>
+-0.3010 HOW ARE YOU
+-0.3010 YOU MARCEL </s>
+
+\end\
