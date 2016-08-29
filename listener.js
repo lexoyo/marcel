@@ -2,10 +2,17 @@ const spawn = require('child_process').spawn;
 const speaker = require('./speaker').speaker;
 
 
-const listener = {
+const Listener = function() {};
+
+Listener.prototype = {
+  usePredefinedWords: false,
   start: function start(onHeard) {
+    console.log('Listener::start', this.usePredefinedWords);
     // start process with listen C program
-    const cmd    = spawn('npm', ['run', 'listen']);
+    const cmd    = spawn('npm', [
+      'run',
+      this.usePredefinedWords ? 'listen:usePredefinedWords' : 'listen'
+    ]);
 
     cmd.stdout.on('data', function (data) {
       const phrase = data.toString();
@@ -36,4 +43,4 @@ const listener = {
     });
   }
 }
-exports.listener = listener;
+exports.Listener = Listener;

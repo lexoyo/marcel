@@ -44,3 +44,17 @@ Use this tool to chose words to be recognized (optional but much more efficient)
 http://www.speech.cs.cmu.edu/tools/lmtool-new.html
 
 Then use `npm run listen:sentences` in `index.js`
+
+Here are foreign language packs:
+http://www.politepix.com/languages
+
+Convert *.lm.dmp to *.lm (very slow) (from [this tutorial](http://cmusphinx.sourceforge.net/wiki/tutoriallm))
+
+```
+sphinx_lm_convert -i ../fr/fr.lm.dmp -ifmt bin -o ../fr/model.lm -ofmt arpa
+```
+Convert to .bin (quicker to start)
+
+```
+sphinx_lm_convert -i model.lm -o model.lm.bin
+```

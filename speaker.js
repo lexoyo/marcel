@@ -13,7 +13,10 @@ const randomvoice = {
   amplitude: 92
 }
 
-const speaker = {
+const Speaker = function() {};
+exports.Speaker = Speaker;
+
+Speaker.prototype = {
   say: function(phrase, cbk) {
     console.log('speaker says:', phrase);
     var Speaker = require('speaker');
@@ -35,4 +38,3 @@ const speaker = {
   }
 }
 
-exports.speaker = speaker;
