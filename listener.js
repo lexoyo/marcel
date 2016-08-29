@@ -1,22 +1,23 @@
 const spawn = require('child_process').spawn;
 const speaker = require('./speaker').speaker;
+const Lang = require('./thinker').Lang;
 
 
-const Listener = function() {};
-
-Listener.prototype = {
-  usePredefinedWords: false,
+const Listener = {
+  usePredefinedWords: true,
+  lang: Lang.EN,
   start: function start(onHeard) {
-    console.log('Listener::start', this.usePredefinedWords);
+    if(Listener.usePredefinedWords === undefined || Listener.lang === undefined) {
+      throw 'undefined variables (scope issue?)';
+    }
     // start process with listen C program
-    const cmd    = spawn('npm', [
+    const cmd = spawn('npm', [
       'run',
-      this.usePredefinedWords ? 'listen:usePredefinedWords' : 'listen'
+      Listener.usePredefinedWords ? 'listen:' + Listener.lang + ':usePredefinedWords' : 'listen:' + Listener.lang
     ]);
 
     cmd.stdout.on('data', function (data) {
       const phrase = data.toString();
-      console.log('stdout: ', phrase);
     });
     cmd.stdout.on('end', function (data) {
       console.log('stdout  END ');
@@ -29,7 +30,7 @@ Listener.prototype = {
     });
 
     // say it out loud
-    cmd.stdout.on('data', function (data) {
+    cmd.stdout.on('data', data => {
       const phrase = data.toString().split('\n').join(' ').trim();
       if(phrase.indexOf('>') === 0) {
         // npm logs

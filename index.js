@@ -1,9 +1,7 @@
-const Listener = require('./listener').Listener;
-const listener = new Listener();
+const listener = require('./listener').Listener;
 const Modes = require('./thinker').Modes;
 
-const Thinker = require('./thinker').Thinker;
-const thinker = new Thinker();
+const thinker = require('./thinker').Thinker;
 
 const Speaker = require('./speaker').Speaker;
 const speaker = new Speaker();
@@ -25,6 +23,7 @@ function onHeard(phrase, next) {
         default:
           console.error('thinker has a lisening mode =', thinker.mode)
       }
+      listener.lang = thinker.lang;
       speaker.say("Talk now...", function() {
         next();
       });

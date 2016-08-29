@@ -1,4 +1,4 @@
-Language model created by QuickLM on Mon Aug 29 17:55:26 EDT 2016
+Language model created by QuickLM on Mon Aug 29 18:42:32 EDT 2016
 Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
 
 The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
@@ -25,7 +25,7 @@ ngram 3=9
 -1.6990 NON -0.2253
 -1.6990 OUI -0.2253
 -1.6990 PARLONS -0.2253
--1.6990 SûR -0.2253
+-1.6990 SUR -0.2253
 
 \2-grams:
 -1.2041 <s> ANGLAIS 0.0000
@@ -38,23 +38,23 @@ ngram 3=9
 -1.2041 <s> PARLONS 0.0000
 -0.3010 ANGLAIS </s> -0.3010
 -0.3010 AUREVOIR </s> -0.3010
--0.3010 BIEN SûR 0.0000
+-0.3010 BIEN SUR 0.0000
 -0.3010 BONJOUR </s> -0.3010
 -0.3010 CONNARD </s> -0.3010
 -0.3010 NON </s> -0.3010
 -0.3010 OUI </s> -0.3010
 -0.3010 PARLONS </s> -0.3010
--0.3010 SûR </s> -0.3010
+-0.3010 SUR </s> -0.3010
 
 \3-grams:
 -0.3010 <s> ANGLAIS </s>
 -0.3010 <s> AUREVOIR </s>
--0.3010 <s> BIEN SûR
+-0.3010 <s> BIEN SUR
 -0.3010 <s> BONJOUR </s>
 -0.3010 <s> CONNARD </s>
 -0.3010 <s> NON </s>
 -0.3010 <s> OUI </s>
 -0.3010 <s> PARLONS </s>
--0.3010 BIEN SûR </s>
+-0.3010 BIEN SUR </s>
 
 \end\

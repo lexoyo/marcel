@@ -8,26 +8,40 @@ const Modes = {
 }
 exports.Modes = Modes;
 
-const Thinker = function() {};
-exports.Thinker = Thinker;
+const Lang = {
+  EN: 'en',
+  FR: 'fr',
+}
+exports.Lang = Lang;
 
-Thinker.prototype = {
-  mode: Modes.LISTEN,
+Thinker = {
+  lang: Lang.EN,
+  mode: Modes.LISTEN_WITH_PREDEFINED_WORDS,
   think: function(phrase, cbk) {
-    console.log('thinking', phrase, this.mode);
-    if(phrase.indexOf('marcel') != -1) {
-      this.mode = Modes.SPEAK;
-      speaker.say('Yes I\'m Marcel!', () => {
-        this.mode = Modes.LISTEN_WITH_PREDEFINED_WORDS;
+    console.log('thinking', phrase, Thinker.mode);
+    if(phrase.indexOf('MARCEL') != -1) {
+      speaker.say('Yes I\'m Marcel!', function() {
+        cbk();
+      });
+    }
+    else if(phrase.indexOf('SPEAK FRENCH') != -1) {
+      Thinker.lang = Lang.FR;
+      speaker.say('Oui, parlons frenchy!', function() {
+        cbk();
+      });
+    }
+    else if(phrase.indexOf('PARLONS ANGLAIS') != -1) {
+      Thinker.lang = Lang.EN;
+      speaker.say('Yes, let\'s talk in English!', function() {
         cbk();
       });
     }
     else {
-      this.mode = Modes.SPEAK;
-      speaker.say('You said: ' + phrase, () => {
-        this.mode = Modes.LISTEN;
+      speaker.say('You said: ' + phrase, function() {
         cbk();
       });
     }
   },
 }
+
+exports.Thinker = Thinker;

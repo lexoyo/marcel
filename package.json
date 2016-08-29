@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node .",
     "build": "./build.sh",
-    "listen": "./listen -inmic yes -logfn /dev/null -continuous no",
+    "listen:en": "./listen -inmic yes -logfn /dev/null -continuous no",
     "listen:fr": "./listen -inmic yes -continuous yes -hmm ../fr -dict ../fr/fr.dict -lm ../fr/fr.lm.bin -logfn /dev/null -vad_threshold 3.5",
-    "listen:fr:withPredefinedWords": "./listen -inmic yes -continuous yes -dict predefined-words/fr.dic -lm predefined-words/fr.lm -logfn /dev/null",
-    "listen:withPredefinedWords": "./listen -inmic yes -logfn /dev/null -continuous no -lm predefined-words/en.lm -dict predefined-words/en.dic"
+    "listen:fr:usePredefinedWords": "./listen -inmic yes -continuous yes -dict predefined-words/fr.dic -lm predefined-words/fr.lm -logfn /dev/null",
+    "listen:en:usePredefinedWords": "./listen -inmic yes -logfn /dev/null -continuous no -lm predefined-words/en.lm -dict predefined-words/en.dic"
   },
   "author": "",
   "license": "ISC",
