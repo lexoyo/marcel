@@ -42,7 +42,7 @@ Thinker.prototype.think = function(phrase, cbk) {
       state.transitions().forEach(eventName => {
         const isSaid = eventName.split(' ').reduce((prev, word) => prev && phrase.indexOf(word.toUpperCase()) > -1, true);
         if(isSaid) {
-          console.log('change state', isSaid, eventName, state[eventName]);
+          console.log('change state', isSaid, eventName);
           state[eventName]();
           hasChanged = true;
         }
