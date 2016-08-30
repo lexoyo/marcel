@@ -1,6 +1,6 @@
-export LD_LIBRARY_PATH=/usr/local/lib:/home/lexoyo/Projects/jasper/pocketsphinx/src/libpocketsphinx/.libs:/home/lexoyo/Projects/jasper/sphinxbase/src/libsphinxbase/.libs:/home/lexoyo/Projects/jasper/sphinxbase/src/libsphinxad/.libs:/home/lexoyo/Projects/jasper/openfst/src/lib/
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/home/lexoyo/Projects/jasper/pocketsphinx:/home/lexoyo/Projects/jasper/sphinxbase
-PATH=$PATH:/home/lexoyo/Projects/jasper/Phonetisaurus/src/bin/
+export LD_LIBRARY_PATH=/usr/local/lib:"${PWD}"/../pocketsphinx/src/libpocketsphinx/.libs:"${PWD}"/../sphinxbase/src/libsphinxbase/.libs:"${PWD}"/../sphinxbase/src/libsphinxad/.libs:"${PWD}"/../openfst/src/lib/
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:"${PWD}"/../pocketsphinx:"${PWD}"/../sphinxbase
+PATH=$PATH:"${PWD}"/../Phonetisaurus/src/bin/
 
 gcc -o listen listen.c \
   -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \

@@ -30,6 +30,6 @@ function onHeard(phrase, next) {
     });
   }
 }
-speaker.say("Mean talker starting...", function() {
+speaker.say("Marcel starting...", function() {
   listener.start(onHeard);
 });

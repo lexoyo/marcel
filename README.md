@@ -1,5 +1,6 @@
-# the-bad-talker
-a bot which listens and says non sense
+# marcel
+
+a bot which listens and says non sense in several languages
 
 ```
 $ npm i
@@ -28,7 +29,13 @@ with
 
 ### listen
 
-needs pocketsphinx installed and configured, which is not an easy task
+Needs pocketsphinx installed and configured, which is not an easy task.
+
+Specific to raspberry:
+
+* [the instructions for raspberry pi](http://cmusphinx.sourceforge.net/wiki/raspberrypi)
+* [find the missing file alsa-base.conf](http://superuser.com/questions/989385/alsa-base-conf-missing-in-new-raspberry-pi-raspbian-jesse) (use the comment about `/lib/modprobe.d/aliases.conf`)
+* [this post about trouble shooting mic/audio](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=37262)
 
 My parent folder looks like this
 
@@ -38,7 +45,7 @@ My parent folder looks like this
 * pocketsphinx
 * pocketsphinx-python
 * sphinxbase
-* the-bad-talker
+* marcel
 
 Use this tool to chose words to be recognized (optional but much more efficient)
 http://www.speech.cs.cmu.edu/tools/lmtool-new.html

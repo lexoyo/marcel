@@ -205,7 +205,7 @@ print_word_times()
         ps_seg_frames(iter, &sf, &ef);
         pprob = ps_seg_prob(iter, NULL, NULL, NULL);
         conf = logmath_exp(ps_get_logmath(ps), pprob);
-        printf("%s %.3f %.3f %f\n", ps_seg_word(iter), ((float)sf / frame_rate),
+        printf("> %s %.3f %.3f %f\n", ps_seg_word(iter), ((float)sf / frame_rate),
                ((float) ef / frame_rate), conf);
         iter = ps_seg_next(iter);
     }
@@ -217,20 +217,20 @@ check_wav_header(char *header, int expected_sr)
     int sr;
 
     if (header[34] != 0x10) {
-        E_ERROR("Input audio file has [%d] bits per sample instead of 16\n", header[34]);
+        printf("> Input audio file has [%d] bits per sample instead of 16\n", header[34]);
         return 0;
     }
     if (header[20] != 0x1) {
-        E_ERROR("Input audio file has compression [%d] and not required PCM\n", header[20]);
+        printf("> Input audio file has compression [%d] and not required PCM\n", header[20]);
         return 0;
     }
     if (header[22] != 0x1) {
-        E_ERROR("Input audio file has [%d] channels, expected single channel mono\n", header[22]);
+        printf("> Input audio file has [%d] channels, expected single channel mono\n", header[22]);
         return 0;
     }
     sr = ((header[24] & 0xFF) | ((header[25] & 0xFF) << 8) | ((header[26] & 0xFF) << 16) | ((header[27] & 0xFF) << 24));
     if (sr != expected_sr) {
-        E_ERROR("Input audio file has sample rate [%d], but decoder expects [%d]\n", sr, expected_sr);
+        printf("> Input audio file has sample rate [%d], but decoder expects [%d]\n", sr, expected_sr);
         return 0;
     }
     return 1;
@@ -259,11 +259,11 @@ recognize_from_file()
         char waveheader[44];
   fread(waveheader, 1, 44, rawfd);
   if (!check_wav_header(waveheader, (int)cmd_ln_float32_r(config, "-samprate")))
-          E_FATAL("Failed to process file '%s' due to format mismatch.\n", fname);
+          printf("> Failed to process file '%s' due to format mismatch.\n", fname);
     }
 
     if (strlen(fname) > 4 && strcmp(fname + strlen(fname) - 4, ".mp3") == 0) {
-  E_FATAL("Can not decode mp3 files, convert input file to WAV 16kHz 16-bit mono before decoding.\n");
+  printf("> Can not decode mp3 files, convert input file to WAV 16kHz 16-bit mono before decoding.\n");
     }
 
     ps_start_utt(ps);
@@ -279,7 +279,7 @@ recognize_from_file()
             ps_end_utt(ps);
             hyp = ps_get_hyp(ps, NULL);
             if (hyp != NULL)
-          printf("%s\n", hyp);
+          printf("> %s\n", hyp);
             if (print_times)
           print_word_times();
             fflush(stdout);
@@ -292,7 +292,7 @@ recognize_from_file()
     if (utt_started) {
         hyp = ps_get_hyp(ps, NULL);
         if (hyp != NULL) {
-          printf("%s\n", hyp);
+          printf("> %s\n", hyp);
           if (print_times) {
         print_word_times();
       }
@@ -339,19 +339,19 @@ recognize_from_microphone(int continuous)
     if ((ad = ad_open_dev(cmd_ln_str_r(config, "-adcdev"),
                           (int) cmd_ln_float32_r(config,
                                                  "-samprate"))) == NULL)
-        E_FATAL("Failed to open audio device\n");
+        printf("> Failed to open audio device\n");
     if (ad_start_rec(ad) < 0)
-        E_FATAL("Failed to start recording\n");
+        printf("> Failed to start recording\n");
 
     if (ps_start_utt(ps) < 0)
-        E_FATAL("Failed to start utterance\n");
+        printf("> Failed to start utterance\n");
     utt_started = FALSE;
     E_INFO("Ready....\n");
 
     E_INFO("Starting... (-continuous=%i)\n", continuous);
     for (;;) {
         if ((k = ad_read(ad, adbuf, 2048)) < 0)
-            E_FATAL("Failed to read audio\n");
+            printf("> Failed to read audio\n");
         ps_process_raw(ps, adbuf, k, FALSE, FALSE);
         in_speech = ps_get_in_speech(ps);
         if (in_speech && !utt_started) {
@@ -363,7 +363,7 @@ recognize_from_microphone(int continuous)
             ps_end_utt(ps);
             hyp = ps_get_hyp(ps, NULL );
             if (hyp != NULL) {
-                printf("%s\n", hyp);
+                printf("> %s\n", hyp);
                 fflush(stdout);
                 // print_word_times();
                 if(continuous == FALSE)
@@ -374,7 +374,7 @@ recognize_from_microphone(int continuous)
             }
 
             if (ps_start_utt(ps) < 0)
-                E_FATAL("Failed to start utterance\n");
+                printf("> Failed to start utterance\n");
             utt_started = FALSE;
             E_INFO("Ready....\n");
         }
