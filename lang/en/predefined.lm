@@ -1,0 +1,97 @@
+Language model created by QuickLM on Tue Aug 30 08:52:01 EDT 2016
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 14 sentences and 21 words
+
+\data\
+ngram 1=21
+ngram 2=33
+ngram 3=20
+
+\1-grams:
+-0.8361 </s> -0.3010
+-0.8361 <s> -0.2272
+-1.9823 ARE -0.2919
+-1.9823 BIG -0.2965
+-1.9823 CHANGE -0.2965
+-1.9823 ENGLISH -0.2326
+-1.9823 FOR -0.2326
+-1.9823 FRENCH -0.2326
+-1.9823 FUCK -0.2326
+-1.9823 GUY -0.2326
+-1.9823 HELLO -0.2326
+-1.9823 HOW -0.2965
+-1.9823 MARCEL -0.2326
+-1.9823 ME -0.2326
+-1.9823 MODE -0.2326
+-1.9823 REPEAT -0.2326
+-1.9823 SHUT -0.2965
+-1.9823 SPEAK -0.2326
+-1.9823 TELL -0.2965
+-1.9823 UP -0.2326
+-1.6812 YOU -0.2326
+
+\2-grams:
+-1.4472 <s> BIG 0.0000
+-1.4472 <s> CHANGE 0.0000
+-1.4472 <s> ENGLISH 0.0000
+-1.4472 <s> FOR 0.0000
+-1.4472 <s> FRENCH 0.0000
+-1.4472 <s> FUCK 0.0000
+-1.4472 <s> HELLO 0.0000
+-1.4472 <s> HOW 0.0000
+-1.4472 <s> MARCEL 0.0000
+-1.4472 <s> REPEAT 0.0000
+-1.4472 <s> SHUT 0.0000
+-1.4472 <s> SPEAK 0.0000
+-1.4472 <s> TELL 0.0000
+-1.4472 <s> YOU 0.0000
+-0.3010 ARE YOU 0.0000
+-0.3010 BIG GUY 0.0000
+-0.3010 CHANGE MODE 0.0000
+-0.3010 ENGLISH </s> -0.3010
+-0.3010 FOR </s> -0.3010
+-0.3010 FRENCH </s> -0.3010
+-0.3010 FUCK </s> -0.3010
+-0.3010 GUY </s> -0.3010
+-0.3010 HELLO </s> -0.3010
+-0.3010 HOW ARE 0.0000
+-0.3010 MARCEL </s> -0.3010
+-0.3010 ME </s> -0.3010
+-0.3010 MODE </s> -0.3010
+-0.3010 REPEAT </s> -0.3010
+-0.3010 SHUT UP 0.0000
+-0.3010 SPEAK </s> -0.3010
+-0.3010 TELL ME 0.0000
+-0.3010 UP </s> -0.3010
+-0.3010 YOU </s> -0.3010
+
+\3-grams:
+-0.3010 <s> BIG GUY
+-0.3010 <s> CHANGE MODE
+-0.3010 <s> ENGLISH </s>
+-0.3010 <s> FOR </s>
+-0.3010 <s> FRENCH </s>
+-0.3010 <s> FUCK </s>
+-0.3010 <s> HELLO </s>
+-0.3010 <s> HOW ARE
+-0.3010 <s> MARCEL </s>
+-0.3010 <s> REPEAT </s>
+-0.3010 <s> SHUT UP
+-0.3010 <s> SPEAK </s>
+-0.3010 <s> TELL ME
+-0.3010 <s> YOU </s>
+-0.3010 ARE YOU </s>
+-0.3010 BIG GUY </s>
+-0.3010 CHANGE MODE </s>
+-0.3010 HOW ARE YOU
+-0.3010 SHUT UP </s>
+-0.3010 TELL ME </s>
+
+\end\

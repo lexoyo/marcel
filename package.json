@@ -8,9 +8,9 @@
     "start": "node .",
     "build": "./build.sh",
     "listen:en": "./listen -inmic yes -logfn /dev/null -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/ -adcdev sysdefault",
-    "listen:fr": "./listen -inmic yes -continuous yes -hmm ../fr -dict ../fr/fr.dict -lm ../fr/fr.lm.bin -logfn /dev/null -vad_threshold 3.5 -adcdev sysdefault",
-    "listen:fr:usePredefinedWords": "./listen -inmic yes -continuous yes -dict predefined-words/fr.dic -lm predefined-words/fr.lm -logfn /dev/null -adcdev sysdefault",
-    "listen:en:usePredefinedWords": "./listen -inmic yes -logfn /dev/null -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/ -adcdev sysdefault -lm predefined-words/en.lm -dict predefined-words/en.dic"
+    "listen:fr": "./listen -inmic yes -continuous yes -hmm lang/fr -dict lang/fr/fr.dict -lm lang/fr/fr-small.lm.bin -logfn /dev/null -vad_threshold 3.5 -adcdev sysdefault",
+    "listen:fr:usePredefinedWords": "./listen -inmic yes -continuous yes -dict lang/fr/predefined.dict -lm lang/fr/predefined.lm -logfn /dev/null -adcdev sysdefault",
+    "listen:en:usePredefinedWords": "./listen -inmic yes -logfn /dev/null -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/ -adcdev sysdefault -lm lang/en/predefined.lm -dict lang/en/predefined.dict"
   },
   "author": "",
   "license": "ISC",

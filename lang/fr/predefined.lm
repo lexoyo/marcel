@@ -1,0 +1,103 @@
+Language model created by QuickLM on Tue Aug 30 08:53:40 EDT 2016
+Copyright (c) 1996-2010 Carnegie Mellon University and Alexander I. Rudnicky
+
+The model is in standard ARPA format, designed by Doug Paul while he was at MITRE.
+
+The code that was used to produce this language model is available in Open Source.
+Please visit http://www.speech.cs.cmu.edu/tools/ for more information
+
+The (fixed) discount mass is 0.5. The backoffs are computed using the ratio method.
+This model based on a corpus of 15 sentences and 23 words
+
+\data\
+ngram 1=23
+ngram 2=36
+ngram 3=21
+
+\1-grams:
+-0.8325 </s> -0.3010
+-0.8325 <s> -0.2319
+-2.0086 ANGLAIS -0.2319
+-2.0086 AUREVOIR -0.2319
+-2.0086 BATARD -0.2319
+-2.0086 BIEN -0.2968
+-2.0086 BONJOUR -0.2319
+-2.0086 CHANGE -0.2968
+-2.0086 CONNARD -0.2319
+-2.0086 DE -0.2968
+-2.0086 DIS -0.2968
+-2.0086 GUEULE -0.2319
+-2.0086 MODE -0.2319
+-2.0086 MOI -0.2319
+-2.0086 NON -0.2319
+-2.0086 OUI -0.2319
+-2.0086 PARLONS -0.2319
+-2.0086 PENDANT -0.2319
+-2.0086 REPETE -0.2319
+-2.0086 SUR -0.2319
+-2.0086 TA -0.2968
+-2.0086 TAIS -0.2968
+-2.0086 TOI -0.2319
+
+\2-grams:
+-1.4771 <s> ANGLAIS 0.0000
+-1.4771 <s> AUREVOIR 0.0000
+-1.4771 <s> BATARD 0.0000
+-1.4771 <s> BIEN 0.0000
+-1.4771 <s> BONJOUR 0.0000
+-1.4771 <s> CHANGE 0.0000
+-1.4771 <s> CONNARD 0.0000
+-1.4771 <s> DIS 0.0000
+-1.4771 <s> NON 0.0000
+-1.4771 <s> OUI 0.0000
+-1.4771 <s> PARLONS 0.0000
+-1.4771 <s> PENDANT 0.0000
+-1.4771 <s> REPETE 0.0000
+-1.4771 <s> TA 0.0000
+-1.4771 <s> TAIS 0.0000
+-0.3010 ANGLAIS </s> -0.3010
+-0.3010 AUREVOIR </s> -0.3010
+-0.3010 BATARD </s> -0.3010
+-0.3010 BIEN SUR 0.0000
+-0.3010 BONJOUR </s> -0.3010
+-0.3010 CHANGE DE 0.0000
+-0.3010 CONNARD </s> -0.3010
+-0.3010 DE MODE 0.0000
+-0.3010 DIS MOI 0.0000
+-0.3010 GUEULE </s> -0.3010
+-0.3010 MODE </s> -0.3010
+-0.3010 MOI </s> -0.3010
+-0.3010 NON </s> -0.3010
+-0.3010 OUI </s> -0.3010
+-0.3010 PARLONS </s> -0.3010
+-0.3010 PENDANT </s> -0.3010
+-0.3010 REPETE </s> -0.3010
+-0.3010 SUR </s> -0.3010
+-0.3010 TA GUEULE 0.0000
+-0.3010 TAIS TOI 0.0000
+-0.3010 TOI </s> -0.3010
+
+\3-grams:
+-0.3010 <s> ANGLAIS </s>
+-0.3010 <s> AUREVOIR </s>
+-0.3010 <s> BATARD </s>
+-0.3010 <s> BIEN SUR
+-0.3010 <s> BONJOUR </s>
+-0.3010 <s> CHANGE DE
+-0.3010 <s> CONNARD </s>
+-0.3010 <s> DIS MOI
+-0.3010 <s> NON </s>
+-0.3010 <s> OUI </s>
+-0.3010 <s> PARLONS </s>
+-0.3010 <s> PENDANT </s>
+-0.3010 <s> REPETE </s>
+-0.3010 <s> TA GUEULE
+-0.3010 <s> TAIS TOI
+-0.3010 BIEN SUR </s>
+-0.3010 CHANGE DE MODE
+-0.3010 DE MODE </s>
+-0.3010 DIS MOI </s>
+-0.3010 TA GUEULE </s>
+-0.3010 TAIS TOI </s>
+
+\end\
