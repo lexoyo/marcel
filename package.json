@@ -25,7 +25,7 @@
     },
     "states": {
       "activity": {
-        "initial": "passive",
+        "initial": "active",
         "events": [
           { "name": "let's talk", "from": "passive", "to": "active" },
           { "name": "shut up", "from": "active", "to": "passive" }
