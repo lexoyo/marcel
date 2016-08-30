@@ -12,7 +12,7 @@ const speaker = new Speaker(config);
 
 function onHeard(phrase, next) {
   if(phrase === '') {
-    next();
+    next(thinker.state);
   }
   else {
     thinker.think(phrase, function() {
@@ -26,10 +26,8 @@ function onHeard(phrase, next) {
         default:
           console.error('thinker has a lisening mode =', thinker.mode)
       }
-      listener.lang = thinker.lang;
-      speaker.say("Talk now...", function() {
-        next();
-      });
+      listener.lang = thinker.state.lang.current;
+      next(thinker.state);
     });
   }
 }

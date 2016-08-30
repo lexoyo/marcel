@@ -4,16 +4,40 @@
   "description": "",
   "main": "mic.js",
   "marcel": {
-    "all": {
-      "listen-cmd-params": "-inmic yes"
+    "voice": {
+      "variant": "f6",
+      "wordgap": 2,
+      "speed": 150,
+      "pitch": 2,
+      "amplitude": 90
     },
-    "raspi": {
-      "listen-cmd-params": "-adcdev sysdefault"
+    "context": {
+      "all": {
+        "listen-cmd-params": "-inmic yes"
+      },
+      "raspi": {
+        "listen-cmd-params": "-adcdev sysdefault"
+      },
+      "release": {
+        "listen-cmd-params": "-logfn /dev/null"
+      },
+      "linux": {}
     },
-    "release": {
-      "listen-cmd-params": "-logfn /dev/null"
-    },
-    "linux": {
+    "states": {
+      "activity": {
+        "initial": "passive",
+        "events": [
+          { "name": "let's talk", "from": "passive", "to": "active" },
+          { "name": "shut up", "from": "active", "to": "passive" }
+        ]
+      },
+      "lang": {
+        "initial": "en",
+        "events": [
+          { "name": "speak french", "from": "en", "to": "fr" },
+          { "name": "parler anglais", "from": "fr", "to": "en" }
+        ]
+      }
     }
   },
   "scripts": {
@@ -30,6 +54,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "javascript-state-machine": "^2.3.5",
     "lmtool": "^2.0.3",
     "make-prop-stream": "^1.0.0",
     "randomvoice": "0.0.0",

@@ -21,10 +21,10 @@ Listener.prototype.buildCmd = function buildCmd() {
   // contexts passed to npm start + 'all'
   // should be linux or raspi and/or debug
   const context = ['all'].concat(
-    process.argv.filter(val => !!config[val])
+    process.argv.filter(val => !!config.context[val])
   );
   const additionalParams =
-    context.map(contextName => config[contextName]['listen-cmd-params'])
+    context.map(contextName => config.context[contextName]['listen-cmd-params'])
     .join(' ');
 
   return npmCommand + ' -- ' + additionalParams;
@@ -58,7 +58,7 @@ Listener.prototype.start = function start(onHeard) {
       console.log('do not say', phrase);
     }
     else {
-      onHeard(phrase, () => {
+      onHeard(phrase, (state) => {
         this.start(onHeard);
       });
     }

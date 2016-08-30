@@ -69,3 +69,13 @@ Convert to .bin (quicker to start)
 ```
 sphinx_lm_convert -i model.lm -o model.lm.bin
 ```
+
+## road map
+
+* activate between "marcel" and "shut up marcel"
+* switch between languages
+* repeat mode
+* record / play sound
+* play radio
+* give the time, set timer
+* search [duckduckgo instant answers](https://duckduckgo.com/api)
