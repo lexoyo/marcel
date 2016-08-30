@@ -8,6 +8,8 @@ english
 change mode
 tell me
 repeat
+anything
+stop
 shut up
 for
 fuck

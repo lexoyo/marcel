@@ -8,6 +8,7 @@ parlons
 anglais
 dis moi
 repete
+stop
 batard
 change de mode
 tais toi
