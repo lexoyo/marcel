@@ -13,7 +13,9 @@ const randomvoice = {
   amplitude: 92
 }
 
-const Speaker = function() {};
+const Speaker = function(config) {
+  this.config = config;
+};
 exports.Speaker = Speaker;
 
 Speaker.prototype = {

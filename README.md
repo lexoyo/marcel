@@ -4,7 +4,11 @@ a bot which listens and says non sense in several languages
 
 ```
 $ npm i
-$ npm start
+$ npm start linux release
+```
+or
+```
+$ npm start raspi release
 ```
 
 ## requirements

@@ -1,11 +1,14 @@
-const listener = require('./listener').Listener;
+const config = require('./package.json').marcel;
+
+const Listener = require('./listener').Listener;
+const listener = new Listener(config);
+
+const Thinker = require('./thinker').Thinker;
+const thinker = new Thinker(config);
 const Modes = require('./thinker').Modes;
 
-const thinker = require('./thinker').Thinker;
-
 const Speaker = require('./speaker').Speaker;
-const speaker = new Speaker();
-
+const speaker = new Speaker(config);
 
 function onHeard(phrase, next) {
   if(phrase === '') {
