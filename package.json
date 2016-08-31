@@ -35,7 +35,7 @@
         "initial": "en",
         "events": [
           { "name": "speak french", "from": "en", "to": "fr" },
-          { "name": "parler anglais", "from": "fr", "to": "en" }
+          { "name": "parl anglais", "from": "fr", "to": "en" }
         ]
       }
     }
@@ -43,12 +43,13 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "node .",
-    "build": "npm run build:listener",
+    "build": "npm run build:listener && npm run build:lang && npm run fix:mespeak",
+    "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js",
     "build:listener": "./build.sh",
     "build:lang": "node build-lang.js && rm *.lm *.dic *.log_* *.sent *.vocab *.tgz ",
     "listen:en": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/",
-    "listen:fr": "./listen -continuous yes -hmm lang/fr -dict lang/fr/fr.dic -lm lang/fr/fr-small.lm.bin -vad_threshold 3.5",
-    "listen:fr:usePredefinedWords": "./listen -continuous yes -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm",
+    "listen:fr": "./listen -continuous no -hmm lang/fr -dict lang/fr/fr.dic -lm lang/fr/fr-small.lm.bin -vad_threshold 3.5",
+    "listen:fr:usePredefinedWords": "./listen -continuous no -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm",
     "listen:en:usePredefinedWords": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/ -lm lang/en/predefined.lm -dict lang/en/predefined.dic"
   },
   "author": "",

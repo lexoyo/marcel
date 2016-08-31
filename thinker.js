@@ -28,7 +28,7 @@ const Thinker = function(config) {
 Thinker.prototype.lang = Lang.EN;
 Thinker.prototype.mode = Modes.LISTEN_WITH_PREDEFINED_WORDS;
 Thinker.prototype.think = function(phrase, cbk) {
-  console.log('thinking', phrase, this.state.activity.current, this.state.lang.current);
+  // console.log('thinking', phrase, this.state.activity.current, this.state.lang.current);
   if(phrase.indexOf('MARCEL') != -1) {
     speaker.say('Yes I\'m Marcel!', function() {
       cbk();
@@ -42,21 +42,21 @@ Thinker.prototype.think = function(phrase, cbk) {
       state.transitions().forEach(eventName => {
         const isSaid = eventName.split(' ').reduce((prev, word) => prev && phrase.indexOf(word.toUpperCase()) > -1, true);
         if(isSaid) {
-          console.log('change state', isSaid, eventName);
+          // console.log('change state', isSaid, eventName);
           state[eventName]();
           hasChanged = true;
         }
       });
     }
     if(hasChanged) {
+      console.log('new state:', this.state.activity.current, this.state.lang.current)
       speaker.say('switching state!', function() {
         cbk();
       });
     }
     else {
-      speaker.say('You said: ' + phrase, function() {
-        cbk();
-      });
+      console.log('Nothing to do', phrase);
+      cbk();
     }
   }
 };

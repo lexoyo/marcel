@@ -37,25 +37,25 @@ Listener.prototype.start = function start(onHeard) {
   const args = this.buildCmd();
   const cmd = exec('npm run ' + args);
 
-  cmd.stdout.on('data', function (data) {
-    const phrase = data.toString();
-  });
-  cmd.stdout.on('end', function (data) {
-    console.log('stdout  END ');
-  });
-  cmd.stderr.on('data', function (data) {
-    console.log('stderr: ' + data.toString());
-  });
-  cmd.on('exit', function (code) {
-    console.log('child process exited with code ' + code.toString());
-  });
+  // cmd.stdout.on('data', function (data) {
+  //   const phrase = data.toString();
+  // });
+  // cmd.stdout.on('end', function (data) {
+  //   console.log('stdout  END ');
+  // });
+  // cmd.stderr.on('data', function (data) {
+  //   console.log('stderr: ' + data.toString());
+  // });
+  // cmd.on('exit', function (code) {
+  //   console.log('child process exited with code ' + code.toString());
+  // });
 
   // say it out loud
   cmd.stdout.on('data', data => {
     const phrase = data.toString().split('\n').join(' ').trim();
     if(phrase.indexOf('>') === 0) {
       // npm logs
-      console.log('do not say', phrase);
+      // console.log(phrase, '\n');
     }
     else {
       onHeard(phrase, (state) => {

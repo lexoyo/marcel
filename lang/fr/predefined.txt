@@ -1,3 +1,4 @@
+Marcel
 bonjour
 oui
 non
@@ -5,7 +6,10 @@ aurevoir
 bien sur
 connard
 parlons
+parler
 anglais
+parler anglais
+parlons anglais
 dis moi
 repete
 stop

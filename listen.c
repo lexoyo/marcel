@@ -363,7 +363,7 @@ recognize_from_microphone(int continuous)
             ps_end_utt(ps);
             hyp = ps_get_hyp(ps, NULL );
             if (hyp != NULL) {
-                printf("> %s\n", hyp);
+                printf("%s\n", hyp);
                 fflush(stdout);
                 // print_word_times();
                 if(continuous == FALSE)

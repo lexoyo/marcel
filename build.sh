@@ -9,4 +9,4 @@ gcc -o listen listen.c \
   -I "../pocketsphinx/include" \
   -L "../pocketsphinx/src/libpocketsphinx/.libs"  \
   -L "../sphinxbase/src/libsphinxbase/.libs"  \
-  -L "../sphinxbase/src/libsphinxad/.libs"  \
+  -L "../sphinxbase/src/libsphinxad/.libs"
