@@ -52,7 +52,8 @@ My parent folder looks like this
 * marcel
 
 Use this tool to chose words to be recognized (optional but much more efficient)
-http://www.speech.cs.cmu.edu/tools/lmtool-new.html
+* http://www.speech.cs.cmu.edu/tools/lmtool-new.html
+* also see http://www.speech.cs.cmu.edu/sphinx/models/
 
 Then use `npm run listen:sentences` in `index.js`
 

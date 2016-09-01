@@ -41,16 +41,16 @@
     }
   },
   "scripts": {
-    "postinstall": "npm run build",
+    "postinstall": "npm run build && ./install-french.sh",
     "start": "node .",
     "build": "npm run build:listener && npm run build:lang && npm run fix:mespeak",
     "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js",
     "build:listener": "./build.sh",
     "build:lang": "node build-lang.js && rm *.lm *.dic *.log_* *.sent *.vocab *.tgz ",
     "listen:en": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/",
-    "listen:fr": "./listen -continuous no -hmm lang/fr -dict lang/fr/fr.dic -lm lang/fr/fr-small.lm.bin -vad_threshold 3.5",
-    "listen:fr:usePredefinedWords": "./listen -continuous no -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm",
-    "listen:en:usePredefinedWords": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/ -lm lang/en/predefined.lm -dict lang/en/predefined.dic"
+    "listen:fr": "./listen -continuous no -dict `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -lm `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin -vad_threshold 3.0",
+    "listen:fr:usePredefinedWords": "./listen -continuous no -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm -vad_threshold 3.0",
+    "listen:en:usePredefinedWords": "./listen -continuous no -hmm ../pocketsphinx/model/en-us/en-us/ -lm lang/en/predefined.lm -dict lang/en/predefined.dic"
   },
   "author": "",
   "license": "ISC",
