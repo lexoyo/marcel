@@ -25,10 +25,13 @@
     },
     "states": {
       "activity": {
-        "initial": "active",
+        "initial": "passive",
         "events": [
-          { "name": "let's talk", "from": "passive", "to": "active" },
-          { "name": "shut up", "from": "active", "to": "passive" }
+          { "name": "marcel lets talk", "from": "passive", "to": "active" },
+          { "name": "marcel parl", "from": "passive", "to": "active" },
+          { "name": "marcel shut up", "from": ["active", "marcel_youtube"], "to": "passive" },
+          { "name": "marcel tais toi", "from": ["active", "marcel_youtube"], "to": "passive" },
+          { "name": "youtube", "from": "active", "to": "marcel_youtube" }
         ]
       },
       "lang": {
@@ -43,10 +46,10 @@
   "scripts": {
     "postinstall": "npm run build && ./install-french.sh",
     "start": "node .",
-    "build": "npm run build:listener && npm run build:lang && npm run fix:mespeak",
+    "build": "npm run init:modules && npm run build:listener && npm run fix:mespeak",
+    "init:modules": "node init-modules.js",
     "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js",
     "build:listener": "./build.sh",
-    "build:lang": "node build-lang.js && rm *.lm *.dic *.log_* *.sent *.vocab *.tgz ",
     "listen:en": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/",
     "listen:fr": "./listen -continuous no -dict `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -lm `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin -vad_threshold 3.0",
     "listen:fr:usePredefinedWords": "./listen -continuous no -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm -vad_threshold 3.0",
@@ -63,7 +66,6 @@
     "speaker": "^0.3.0",
     "speech-stream": "^1.0.0",
     "stream-array": "^1.1.2",
-    "wav": "^1.0.0",
-    "marcel_tube": "evayse/marcel_tube"
+    "wav": "^1.0.0"
   }
 }

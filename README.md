@@ -15,6 +15,15 @@ $ npm start raspi release
 
 ### speak
 
+on fedora
+```
+$ sudo dnf install alsa-lib-devel
+$ sudo dnf install sphinxbase-devel.x86_64
+$ export LD_LIBRARY_PATH=/usr/local/lib:/usr/include/pocketsphinx:/usr/include/sphinxbase
+$ export PKG_CONFIG_PATH=/usr/lib64/pkgconfig/:/usr/local/lib/pkgconfig:/usr/include/pocketsphinx:/usr/include/sphinxbase
+$ export CPATH=$CPATH:/usr/include/pocketsphinx:/usr/include/sphinxbase
+```
+
 on a raspberry:
 ```
 $ sudo apt-get install gcc libasound2 libasound2-dev
