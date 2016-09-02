@@ -39,7 +39,7 @@ Specific to raspberry:
 
 * [the instructions for raspberry pi](http://cmusphinx.sourceforge.net/wiki/raspberrypi)
 * [find the missing file alsa-base.conf](http://superuser.com/questions/989385/alsa-base-conf-missing-in-new-raspberry-pi-raspbian-jesse) (use the comment about `/lib/modprobe.d/aliases.conf`)
-* [this post about trouble shooting mic/audio](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=37262)
+* [this post about trouble shooting mic/audio](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=37262) and [this one too](http://raspberrypi.stackexchange.com/questions/40831/how-do-i-configure-my-sound-for-jasper-on-raspbian-jessie)
 
 My parent folder looks like this
 

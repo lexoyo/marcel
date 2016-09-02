@@ -16,7 +16,7 @@
         "listen-cmd-params": "-inmic yes"
       },
       "raspi": {
-        "listen-cmd-params": "-adcdev sysdefault"
+        "listen-cmd-params": "-adcdev plughw:1"
       },
       "release": {
         "listen-cmd-params": "-logfn /dev/null"
