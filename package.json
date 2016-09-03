@@ -4,56 +4,56 @@
   "description": "",
   "main": "mic.js",
   "marcel": {
-    "voice": {
-      "variant": "f6",
-      "wordgap": 2,
-      "speed": 150,
-      "pitch": 2,
-      "amplitude": 90
+    "brain": {
+      "initialState": "active",
+      "initialLang": "en"
     },
-    "context": {
-      "all": {
-        "listen-cmd-params": "-inmic yes"
-      },
-      "raspi": {
-        "listen-cmd-params": "-adcdev plughw:1"
-      },
-      "release": {
-        "listen-cmd-params": "-logfn /dev/null"
-      },
-      "linux": {}
+    "mouth": {
+      "voice": {
+        "variant": "f6",
+        "wordgap": 2,
+        "speed": 150,
+        "pitch": 2,
+        "amplitude": 90
+      }
     },
-    "states": {
-      "activity": {
-        "initial": "passive",
-        "events": [
-          { "name": "marcel lets talk", "from": "passive", "to": "active" },
-          { "name": "marcel parl", "from": "passive", "to": "active" },
-          { "name": "marcel shut up", "from": ["active", "marcel_youtube"], "to": "passive" },
-          { "name": "marcel tais toi", "from": ["active", "marcel_youtube"], "to": "passive" },
-          { "name": "youtube", "from": "active", "to": "marcel_youtube" }
-        ]
+    "ear": {
+      "context": {
+        "all": {
+          "-inmic": "yes",
+          "-continuous": "no"
+        },
+        "raspi": {
+          "-adcdev": "plughw:1"
+        },
+        "release": {
+          "-logfn": "/dev/null"
+        },
+        "linux": {}
       },
-      "lang": {
-        "initial": "en",
-        "events": [
-          { "name": "speak french", "from": "en", "to": "fr" },
-          { "name": "parl anglais", "from": "fr", "to": "en" }
-        ]
+      "paths": {
+        "fr": {
+          "hmm": "`pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0",
+          "dic": "`pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic",
+          "lm": "`pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin"
+        },
+        "en": {
+          "hmm": "`pkg-config --variable=modeldir pocketsphinx`/en-us/en-us/",
+          "dic": "`pkg-config --variable=modeldir pocketsphinx`/en-us/cmudict-en-us.dict",
+          "lm": "`pkg-config --variable=modeldir pocketsphinx`/en-us/en-us.lm.bin"
+        }
       }
     }
   },
   "scripts": {
     "postinstall": "npm run build && ./install-french.sh",
-    "start": "node .",
+    "start": "pm2 start app/ --watch --name marcel -- release",
+    "stop": "pm2 stop app/ --watch --name marcel",
+    "logs": "pm2 logs",
     "build": "npm run init:modules && npm run build:listener && npm run fix:mespeak",
     "init:modules": "node init-modules.js",
     "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js",
-    "build:listener": "./build.sh",
-    "listen:en": "./listen -continuous no  -hmm ../pocketsphinx/model/en-us/en-us/",
-    "listen:fr": "./listen -continuous no -dict `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -lm `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin -vad_threshold 3.0",
-    "listen:fr:usePredefinedWords": "./listen -continuous no -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm -vad_threshold 3.0",
-    "listen:en:usePredefinedWords": "./listen -continuous no -hmm ../pocketsphinx/model/en-us/en-us/ -lm lang/en/predefined.lm -dict lang/en/predefined.dic"
+    "build:listener": "./build.sh"
   },
   "author": "",
   "license": "ISC",
@@ -61,6 +61,7 @@
     "javascript-state-machine": "^2.3.5",
     "lmtool": "^2.0.3",
     "make-prop-stream": "^1.0.0",
+    "pm2": "^1.1.3",
     "randomvoice": "0.0.0",
     "request": "^2.73.0",
     "speaker": "^0.3.0",

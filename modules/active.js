@@ -12,4 +12,18 @@ module.exports = {
       ],
     };
   },
+  action: (ear, mouth, state, lang) => {
+    return new Promise((resolve, reject) => {
+      console.log('Module action', lang);
+      ear.listen(lang).then(phrase => {
+        console.log('change state');
+        state[phrase]();
+        resolve();
+      })
+      .catch((e) => reject(e));
+    });
+  }
+  // TODO:
+  // init(ear, mouth)
+  // enter() and leave()
 }

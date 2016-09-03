@@ -6,31 +6,32 @@ var speechStream = require("speech-stream");
 // var randomvoice = require("randomvoice")();
 // randomvoice.speed = forceSpeed || randomvoice.speed;
 
-const Speaker = function(config) {
-  this.config = config;
-  this.voice = config.voice;
+const Mouth = function(config) {
+  this.voice = config.mouth.voice;
 };
-exports.Speaker = Speaker;
+module.exports = Mouth;
 
-Speaker.prototype = {
-  say: function(phrase, cbk) {
-    console.log('speaker says:', phrase);
+Mouth.prototype.say = function(phrase, cbk) {
+  return new Promise((resolve, reject) => {
+    console.log('Mouth says:', phrase);
     var Speaker = require('speaker');
     var wav = require('wav');
     var reader = new wav.Reader();
     // the "format" event gets emitted at the end of the WAVE header
-    reader.on('format', function (format) {
+    reader.on('format', (format) => {
       // the WAVE header is stripped from the output of the reader
       reader.pipe(new Speaker(format));
     });
-    reader.on('end', function () {
-      if(cbk) cbk();
+    reader.on('end', () => {
+      resolve();
+    });
+    reader.on('error', (e) => {
+      reject(e);
     });
     // console.log('random voice options: ', randomvoice);
     streamArray([phrase])
     .pipe(makeProp("message"))
     .pipe(speechStream(this.voice))
     .pipe(reader)
-  }
-}
-
+  });
+};
