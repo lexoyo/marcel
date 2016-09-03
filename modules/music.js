@@ -1,3 +1,5 @@
+const exec = require('child_process').exec;
+
 module.exports = {
   isModule: true,
   getStates: () => {
@@ -26,6 +28,12 @@ module.exports = {
         this.ear.listen(lang)
         .then(phrase => {
           console.log('heard', phrase);
+          const cmd = exec(`DISPLAY=:0 python node_modules/marcel_tube/yt --q "${phrase}"`);
+          cmd.stderr.on('data', function (data) {
+            cmd.kill();
+            const cmd2 = exec(`python node_modules/marcel_tube/yt --q "${phrase}"`);
+            console.log('stderr: ' + data.toString());
+          });
           this.mouth.say('searching for ' + phrase)
           .then(() => {
             resolve();

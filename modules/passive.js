@@ -17,7 +17,10 @@ module.exports = {
   },
   enter: (lang) => {
     return new Promise((resolve, reject) => {
-      resolve();
+      this.mouth.say('Marcel\'s sleeping!')
+      .then(() => {
+        resolve();
+      }).catch(reject);
     });
   },
   leave: (lang) => {

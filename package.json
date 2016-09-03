@@ -67,6 +67,7 @@
     "speaker": "^0.3.0",
     "speech-stream": "^1.0.0",
     "stream-array": "^1.1.2",
-    "wav": "^1.0.0"
+    "wav": "^1.0.0",
+    "marcel_tube": "git://github.com/evayse/marcel_tube"
   }
 }
