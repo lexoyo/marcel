@@ -5,7 +5,7 @@
   "main": "mic.js",
   "marcel": {
     "brain": {
-      "initialState": "active",
+      "initialState": "passive",
       "initialLang": "en"
     },
     "mouth": {

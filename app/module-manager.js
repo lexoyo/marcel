@@ -50,15 +50,18 @@ ModuleManager.prototype.createModules = function (opt_moduleName) {
     .forEach(fileName => {
       if(!opt_moduleName
         || opt_moduleName === fileName
-        || opt_moduleName + '.js' === fileName)
-      try {
-        const module = require(path.resolve(dirPath, fileName));
-        if(module.isModule) {
-          console.log('found module', fileName);
-          modules.push(module);
+        || opt_moduleName + '.js' === fileName) {
+        try {
+          const module = require(path.resolve(dirPath, fileName));
+          if(module.isModule) {
+            console.log('found module', fileName);
+            modules.push(module);
+          }
+        }
+        catch(e) {
+          console.log('error during module creation', e)
         }
       }
-      catch(e) {}
     });
   });
   return modules;

@@ -9,9 +9,14 @@ App.prototype.start = function(){
 }
 
 App.prototype.nextAction = function(){
-  this.brain.think().then(() => this.nextAction());
+  this.brain.think()
+    .then(() => this.nextAction())
+    .catch(e => console.error('error', e));
 }
 
 const config = require('../package.json').marcel;
 const app = new App(config);
 app.start();
+
+setTimeout(() => {
+}, 100000)

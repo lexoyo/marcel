@@ -12,8 +12,6 @@ module.exports = Ear;
  * args from the context of config (package.json > marcel > *)
  */
 Ear.prototype.buildCmd = function(lang, opt_stateName) {
-  // "./listen -continuous no -dict `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic -hmm `pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0 -lm `pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin -vad_threshold 3.0",
-  // "listen:fr:usePredefinedWords": -dict lang/fr/predefined.dic -lm lang/fr/predefined.lm -vad_threshold 3.0",
   const dic = opt_stateName ? `lang/${lang}/${opt_stateName}.dic` : this.paths[lang].dic;
   const lm = opt_stateName ? `lang/${lang}/${opt_stateName}.lm` : this.paths[lang].lm;
   const hmm = this.paths[lang].hmm;
@@ -35,10 +33,10 @@ Ear.prototype.buildCmd = function(lang, opt_stateName) {
   console.log('command:', cmd);
   return cmd;
 };
-Ear.prototype.listen = function(lang) {
+Ear.prototype.listen = function(lang, opt_stateName) {
   return new Promise((resolve, reject) => {
     // start process with listen C program
-    const cmdStr = this.buildCmd(lang);
+    const cmdStr = this.buildCmd(lang, opt_stateName);
     const cmd = exec(cmdStr);
 
     // cmd.stdout.on('data', function (data) {
@@ -57,7 +55,7 @@ Ear.prototype.listen = function(lang) {
 
     // say it out loud
     cmd.stdout.on('data', data => {
-      const phrase = data.toString().split('\n').join(' ').trim();
+      const phrase = data.toString().split('\n').join(' ').trim().toLowerCase();
       if(phrase.indexOf('>') === 0) {
         // npm logs
         // console.log(phrase, '\n');
