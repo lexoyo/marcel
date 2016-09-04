@@ -1,12 +1,13 @@
+const Brain = require('../app/brain');
+
 module.exports = {
   isModule: true,
   getStates: () => {
     return {
       en: [
-        { "name": "hello marcel", "from": "passive", "to": "active" },
       ],
       fr: [
-        { "name": "bonjour marcel", "from": "passive", "to": "active" },
+        { "name": "parlons anglais", "from": "active", "to": "english" },
       ],
     };
   },
@@ -17,7 +18,8 @@ module.exports = {
   },
   enter: (lang) => {
     return new Promise((resolve, reject) => {
-      this.mouth.say('Marcel\'s sleeping!')
+      Brain.lang = 'en';
+      this.mouth.say('Yes I speak english!')
       .then(() => {
         resolve();
       }).catch(reject);
@@ -25,10 +27,7 @@ module.exports = {
   },
   leave: (lang) => {
     return new Promise((resolve, reject) => {
-      this.mouth.say('Yes, my name is Marcel!')
-      .then(() => {
-        resolve();
-      }).catch(reject);
+      resolve();
     });
   }
 }

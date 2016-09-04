@@ -9,9 +9,9 @@ const Brain = function(config) {
   this.mouth = new Mouth(config);
   // init modules
   this.moduleManager = new ModuleManager();
-  this.languages = this.moduleManager.getLanguages();
+  const languages = this.moduleManager.getLanguages();
   this.states = {};
-  this.languages.forEach(lang => {
+  languages.forEach(lang => {
     return this.states[lang] = StateMachine.create({
       initial: config.brain.initialState,
       events: this.moduleManager.getStates(lang),
@@ -19,8 +19,8 @@ const Brain = function(config) {
   });
 
   // initial lang
-  this.lang = config.brain.initialLang;
-  console.log('init done', this.states[this.lang]);
+  Brain.lang = config.brain.initialLang;
+  console.log('init done', this.states[Brain.lang]);
 
   // init current module
   this.enterModule(() => {});
@@ -29,13 +29,13 @@ const Brain = function(config) {
 module.exports = Brain;
 
 Brain.prototype.enterModule = function(cbk) {
-  const moduleName = this.states[this.lang].current;
+  const moduleName = this.states[Brain.lang].current;
   const module = this.moduleManager.createModule(moduleName);
   this.module = module;
   if(module) {
     console.log('enter module', moduleName);
-    module.init(this.ear, this.mouth, this.states[this.lang]);
-    module.enter(this.lang)
+    module.init(this.ear, this.mouth, this.states[Brain.lang]);
+    module.enter(Brain.lang)
       .then(cbk)
       .catch((e) => {
         console.log('error', e);
@@ -51,7 +51,7 @@ Brain.prototype.enterModule = function(cbk) {
 Brain.prototype.leaveModule = function(cbk) {
   if(this.module) {
     console.log('leave module', this.module);
-    this.module.leave(this.lang)
+    this.module.leave(Brain.lang)
       .then(cbk)
       .catch((e) => {
         console.log('error', e);
@@ -65,14 +65,14 @@ Brain.prototype.leaveModule = function(cbk) {
 
 Brain.prototype.think = function(phrase) {
   return new Promise((resolve, reject) => {
-    const moduleName = this.states[this.lang].current;
-    this.ear.listen(this.lang, moduleName).then(phrase => {
-      const currentState = this.states[this.lang].current;
-      if(this.states[this.lang][phrase]) {
-        this.states[this.lang][phrase]();
+    const moduleName = this.states[Brain.lang].current;
+    this.ear.listen(Brain.lang, moduleName).then(phrase => {
+      const currentState = this.states[Brain.lang].current;
+      if(this.states[Brain.lang][phrase]) {
+        this.states[Brain.lang][phrase]();
       }
-      console.log('change state?', phrase, this.states[this.lang].transitions());
-      if(currentState !== this.states[this.lang].current) {
+      console.log('current state', phrase, Brain.lang, this.states[Brain.lang].current , this.states[Brain.lang].transitions());
+      if(currentState !== this.states[Brain.lang].current) {
         console.log('change state');
         if(this.module)
           this.leaveModule(() => this.enterModule(() => resolve()));

@@ -30,7 +30,7 @@ Ear.prototype.buildCmd = function(lang, opt_stateName) {
     .join(' ');
 
   const cmd = `./listen ${additionalParams} -hmm ${hmm} -dict ${dic} -lm ${lm}`;
-  console.log('command:', cmd);
+  // console.log('command:', cmd);
   return cmd;
 };
 Ear.prototype.listen = function(lang, opt_stateName) {
