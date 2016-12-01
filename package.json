@@ -52,8 +52,8 @@
     "stop": "pm2 stop app/ --watch --name marcel",
     "logs": "pm2 logs",
     "build": "npm run init:modules && npm run build:listener && npm run fix:mespeak",
-    "init:modules": "node init-modules.js",
-    "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js",
+    "init:modules": "npm run fix:mespeak && node init-modules.js",
+    "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js && cp fixmespeak.js node_modules/speech-stream/node_modules/mespeak/src/index.js",
     "build:listener": "./build.sh"
   },
   "author": "",
@@ -69,6 +69,7 @@
     "speech-stream": "^1.0.0",
     "stream-array": "^1.1.2",
     "wav": "^1.0.0",
+    "mespeak": "^2.0.1",
     "marcel_tube": "git://github.com/evayse/marcel_tube"
   }
 }
