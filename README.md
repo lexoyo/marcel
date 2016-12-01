@@ -13,6 +13,8 @@ $ npm start raspi release
 
 ## requirements
 
+You probably need to [update nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+
 ### speak
 
 on fedora
