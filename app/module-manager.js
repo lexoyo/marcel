@@ -44,7 +44,9 @@ ModuleManager.prototype.createModule = function (moduleName) {
  */
 ModuleManager.prototype.createModules = function (opt_moduleName) {
   const modules = [];
-  ['modules', 'node_modules'].forEach(dir => {
+  //['modules', 'node_modules']
+  ['modules']
+  .forEach(dir => {
     const dirPath = path.resolve(__dirname, '../', dir);
     fs.readdirSync(dirPath)
     .forEach(fileName => {
@@ -56,10 +58,11 @@ ModuleManager.prototype.createModules = function (opt_moduleName) {
           if(module.isModule) {
             console.log('found module', fileName);
             modules.push(module);
-          }
+          } 
+          //else console.log('not a module', fileName);
         }
         catch(e) {
-          console.log('error during module creation', e)
+          console.log('error during module creation', fileName);
         }
       }
     });

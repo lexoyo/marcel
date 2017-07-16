@@ -1,3 +1,12 @@
 grrhost
 node_modules
 lang
+*.dic
+*.lm
+*.log*
+*.sent
+*.vocab
+*.tgz
+*.gz
+listen
+
