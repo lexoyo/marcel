@@ -149,20 +149,25 @@ ModuleManager.prototype.generateLangData = function(fromStatesArray, currentLang
   // generate lang files
   if(changed) {
     lmtool(state.stateNames, (err, id) => {
-      console.log('lang data retrieved', err, id);
-      // keep .dic and .lm files
-      ['dic', 'lm'].forEach( function(ext) {
-        const fileName = path.resolve(currentLangDir, state.name + '.' + ext);
-        const fileContent = fs.readFileSync(id + '.' + ext).toString();
-        console.log('writing', fileName);
-        fs.writeFileSync(fileName, fileContent);
-      });
-      // keep the initial content
-      fs.writeFileSync(contentFilePath, contentFileData);
-      // remove others
-      fs.readdirSync(__dirname)
-      .filter(fileName => fileName.indexOf(id) >= 0)
-      .forEach(fileName => fs.unlinkSync(path.resolve(__dirname, fileName)));
+      console.log('lang data retrieved', id);
+      if(err) {
+        console.warn('lmtool error:', err);
+      }
+      else {
+        // keep .dic and .lm files
+        ['dic', 'lm'].forEach( function(ext) {
+          const fileName = path.resolve(currentLangDir, state.name + '.' + ext);
+          const fileContent = fs.readFileSync(id + '.' + ext).toString();
+          console.log('writing', fileName);
+          fs.writeFileSync(fileName, fileContent);
+        });
+        // keep the initial content
+        fs.writeFileSync(contentFilePath, contentFileData);
+        // remove others
+        fs.readdirSync(__dirname)
+        .filter(fileName => fileName.indexOf(id) >= 0)
+        .forEach(fileName => fs.unlinkSync(path.resolve(__dirname, fileName)));
+      }
       // next
       next();
     });
