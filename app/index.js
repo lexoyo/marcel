@@ -9,7 +9,6 @@ App.prototype.start = function(){
 }
 
 App.prototype.nextAction = function(){
-  console.log('next action');
   this.brain.think()
     .then(() => this.nextAction())
     .catch(e => console.error('error', e));

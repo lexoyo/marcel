@@ -20,7 +20,6 @@ const Brain = function(config) {
 
   // initial lang
   Brain.lang = config.brain.initialLang;
-  console.log('init done', this.states, Brain.lang, this.states[Brain.lang]);
 
   // init current module
   this.enterModule(() => {});
@@ -33,7 +32,7 @@ Brain.prototype.enterModule = function(phrase, cbk) {
   const module = this.moduleManager.createModule(moduleName);
   this.module = module;
   if(module) {
-    console.log('enter module', moduleName);
+    //console.log('enter module', moduleName);
     module.init(this.ear, this.mouth, this.states[Brain.lang]);
     module.enter(Brain.lang)
       .then(cbk)
@@ -71,23 +70,21 @@ Brain.prototype.think = function(phrase) {
     let found = false;
     let segmentFound = '';
     const words = phrase.split(' ');
-    console.log('*****', words, this.states[Brain.lang].transitions());
 
     for(let idx1 = 0; idx1<words.length && found == false; idx1++) {
       for(let idx2=idx1; idx2<=words.length && found == false; idx2++) {
         const segment = words.slice(idx1, idx2).join(' ');
-        console.log('try state', segment);
+        //console.log('try state', segment);
         if(this.states[Brain.lang][segment] && this.states[Brain.lang].can(segment)) {
-          console.log('found!!');
+          //console.log('found!!');
           this.states[Brain.lang][segment]();
           found = true;
           segmentFound = segment;
         }
       }
     }
-    console.log('current state', Brain.lang, this.states[Brain.lang].current , this.states[Brain.lang].transitions());
     if(currentState !== this.states[Brain.lang].current) {
-      console.log('change state', this.module, currentState, this.states[Brain.lang].current);
+      //console.log('change state', this.module, currentState, this.states[Brain.lang].current);
       if(this.module) {
 	return new Promise((resolve, reject) => {
           this.leaveModule(segmentFound, () => this.enterModule(segmentFound, () => resolve()));

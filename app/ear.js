@@ -21,7 +21,6 @@ Ear.prototype.listen = function(lang, transitions) {
 };
 
 Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
-  console.log('doListen', lang, transitions)
   // start process with listen python program
   const cmdStr = this.buildCmd(lang, transitions);
   const cmd = exec(cmdStr);
@@ -54,7 +53,6 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
       //this.beep();
     }
     else {
-      console.log('xxx');
       const phrase = data;
       resolve(phrase);
     }
