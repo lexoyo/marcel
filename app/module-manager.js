@@ -1,4 +1,3 @@
-const lmtool = require('lmtool');
 const path = require('path');
 const fs = require('fs');
 
@@ -119,61 +118,5 @@ ModuleManager.prototype.createStates = function () {
         stateNames: fromStates[fromStateName],
       });
     }
-    this.generateLangData(fromStatesArray, currentLangDir);
   }
 }
-ModuleManager.prototype.generateLangData = function(fromStatesArray, currentLangDir) {
-  const state = fromStatesArray.shift();
-  // check if lang files need to be regenerated
-  let changed = true;
-  let contentFilePath = path.resolve(currentLangDir, state.name + '.txt');
-  let contentFileData = state.stateNames.join('\n');
-  try {
-    const fileContent = fs.readFileSync(contentFilePath).toString();
-    if(fileContent === contentFileData) {
-      changed = false;
-    }
-  }
-  catch(e) {
-    console.log('file do not exist yet', contentFilePath);
-  }
-  // recursive next
-  const next = function () {
-    if(fromStatesArray.length) {
-      this.generateLangData(fromStatesArray, currentLangDir);
-    }
-    else {
-      // console.log('done', currentLangDir);
-    }
-  }.bind(this);
-  // generate lang files
-  if(changed) {
-    lmtool(state.stateNames, (err, id) => {
-      console.log('lang data retrieved', id);
-      if(err) {
-        console.warn('lmtool error:', err);
-      }
-      else {
-        // keep .dic and .lm files
-        ['dic', 'lm'].forEach( function(ext) {
-          const fileName = path.resolve(currentLangDir, state.name + '.' + ext);
-          const fileContent = fs.readFileSync(id + '.' + ext).toString();
-          console.log('writing', fileName);
-          fs.writeFileSync(fileName, fileContent);
-        });
-        // keep the initial content
-        fs.writeFileSync(contentFilePath, contentFileData);
-        // remove others
-        fs.readdirSync(__dirname)
-        .filter(fileName => fileName.indexOf(id) >= 0)
-        .forEach(fileName => fs.unlinkSync(path.resolve(__dirname, fileName)));
-      }
-      // next
-      next();
-    });
-  }
-  else {
-    console.log('unchange', contentFilePath);
-    next();
-  }
-};

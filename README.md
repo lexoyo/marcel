@@ -20,29 +20,22 @@ You probably need to [update nodejs](https://nodejs.org/en/download/package-mana
 on fedora
 ```
 $ sudo dnf install alsa-lib-devel
-$ sudo dnf install sphinxbase-devel.x86_64
-$ export LD_LIBRARY_PATH=/usr/local/lib:/usr/include/pocketsphinx:/usr/include/sphinxbase
-$ export PKG_CONFIG_PATH=/usr/lib64/pkgconfig/:/usr/local/lib/pkgconfig:/usr/include/pocketsphinx:/usr/include/sphinxbase
-$ export CPATH=$CPATH:/usr/include/pocketsphinx:/usr/include/sphinxbase
+$ pip install SpeechRecognition
 ```
 
 on a raspberry:
 ```
 $ sudo apt-get install gcc libasound2 libasound2-dev
 $ sudo apt-get install mpg321
+$ sudo apt-get install --yes wget unzip # this is for install-french script
+$ pip install SpeechRecognition
 ```
 
-`vi node_modules/speech-stream/node_modules/mespeak/src/index.js` or`vi node_modules/mespeak/src/index.js` then
-replace
-
->  var ESpeak = require("./ESPEAK.js")
-
-with
-
->  var ESpeak = require("./ESpeak.js")
-
-
 ### listen
+
+See here [how to install other languages](https://github.com/Uberi/speech_recognition/blob/master/reference/pocketsphinx.rst#installing-other-languages)
+
+### notes
 
 Needs pocketsphinx installed and configured, which is not an easy task.
 
@@ -51,16 +44,6 @@ Specific to raspberry:
 * [the instructions for raspberry pi](http://cmusphinx.sourceforge.net/wiki/raspberrypi)
 * [find the missing file alsa-base.conf](http://superuser.com/questions/989385/alsa-base-conf-missing-in-new-raspberry-pi-raspbian-jesse) (use the comment about `/lib/modprobe.d/aliases.conf`)
 * [this post about trouble shooting mic/audio](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=37262) and [this one too](http://raspberrypi.stackexchange.com/questions/40831/how-do-i-configure-my-sound-for-jasper-on-raspbian-jessie)
-
-My parent folder looks like this
-
-* openfst
-* phonetisaurus
-* Phonetisaurus
-* pocketsphinx
-* pocketsphinx-python
-* sphinxbase
-* marcel
 
 Use this tool to chose words to be recognized (optional but much more efficient)
 * http://www.speech.cs.cmu.edu/tools/lmtool-new.html

@@ -4,9 +4,9 @@ module.exports = {
   isModule: true,
   getStates: () => {
     return {
-      en: [
+      "en-US": [
       ],
-      fr: [
+      "fr-FR": [
         { "name": "parlons anglais", "from": "active", "to": "english" },
       ],
     };

@@ -6,7 +6,7 @@
   "marcel": {
     "brain": {
       "initialState": "passive",
-      "initialLang": "en"
+      "initialLang": "fr-FR"
     },
     "mouth": {
       "voice": {
@@ -17,59 +17,30 @@
         "amplitude": 90
       }
     },
-    "ear": {
-      "context": {
-        "all": {
-          "-inmic": "yes",
-          "-continuous": "no"
-        },
-        "raspi": {
-          "-adcdev": "plughw:1"
-        },
-        "release": {
-          "-logfn": "/dev/null"
-        },
-        "linux": {}
-      },
-      "paths": {
-        "fr": {
-          "should-be-hmm": "`pkg-config --variable=modeldir pocketsphinx`/hmm/fr_FR/french_f0",
-          "hmm": "`pkg-config --variable=modeldir pocketsphinx`/en-us/en-us/",
-          "dic": "`pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/frenchWords62K.dic",
-          "lm": "`pkg-config --variable=modeldir pocketsphinx`/lm/fr_FR/french3g62K.lm.bin"
-        },
-        "en": {
-          "hmm": "`pkg-config --variable=modeldir pocketsphinx`/en-us/en-us/",
-          "dic": "`pkg-config --variable=modeldir pocketsphinx`/en-us/cmudict-en-us.dict",
-          "lm": "`pkg-config --variable=modeldir pocketsphinx`/en-us/en-us.lm.bin"
-        }
-      }
-    }
+    "ear": {}
   },
   "scripts": {
     "postinstall": "npm run build && ./install-french.sh",
     "start": "pm2 start app/ --watch --name marcel -- release",
     "stop": "pm2 stop app/ --watch --name marcel",
     "logs": "pm2 logs",
-    "build": "npm run init:modules && npm run build:listener && npm run fix:mespeak",
+    "build": "npm run init:modules && npm run fix:mespeak",
     "init:modules": "npm run fix:mespeak && node init-modules.js",
-    "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js && cp fixmespeak.js node_modules/speech-stream/node_modules/mespeak/src/index.js",
-    "build:listener": "./build.sh"
+    "fix:mespeak": "cp fixmespeak.js node_modules/mespeak/src/index.js && cp fixmespeak.js node_modules/speech-stream/node_modules/mespeak/src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "javascript-state-machine": "^2.3.5",
-    "lmtool": "^2.0.3",
     "make-prop-stream": "^1.0.0",
+    "marcel_tube": "git://github.com/evayse/marcel_tube",
+    "mespeak": "^2.0.1",
     "pm2": "^1.1.3",
     "randomvoice": "0.0.0",
     "request": "^2.73.0",
     "speaker": "^0.3.0",
     "speech-stream": "^1.0.0",
     "stream-array": "^1.1.2",
-    "wav": "^1.0.0",
-    "mespeak": "^2.0.1",
-    "marcel_tube": "git://github.com/evayse/marcel_tube"
+    "wav": "^1.0.0"
   }
 }

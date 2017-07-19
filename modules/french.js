@@ -4,10 +4,10 @@ module.exports = {
   isModule: true,
   getStates: () => {
     return {
-      en: [
+      "en-US": [
         { "name": "speak french", "from": "active", "to": "french" },
       ],
-      fr: [
+      "fr-FR": [
       ],
     };
   },

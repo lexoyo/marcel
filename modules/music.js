@@ -4,11 +4,11 @@ module.exports = {
   isModule: true,
   getStates: () => {
     return {
-      en: [
+      "en-US": [
         { "name": "music", "from": "active", "to": "music" },
         { "name": "stop", "from": "music", "to": "passive" },
       ],
-      fr: [
+      "fr-FR": [
         { "name": "musique", "from": "active", "to": "music" },
         { "name": "stop", "from": "music", "to": "passive" },
         { "name": "arrete", "from": "music", "to": "passive" },
