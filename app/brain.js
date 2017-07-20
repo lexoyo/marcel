@@ -37,23 +37,22 @@ Brain.prototype.enterModule = function(phrase, cbk) {
     module.enter(Brain.lang)
       .then(cbk)
       .catch((e) => {
-        console.log('error', e);
+        console.error('\x1b[2merror', e);
         cbk();
       });
   }
   else {
-    console.log('No module for this state', moduleName);
+    console.error('No module for this state', moduleName);
     cbk();
   }
 };
 
 Brain.prototype.leaveModule = function(phrase, cbk) {
   if(this.module) {
-    console.log('leave module', this.module);
     this.module.leave(Brain.lang)
       .then(cbk)
       .catch((e) => {
-        console.log('error', e);
+        console.error('error', e);
         cbk();
       });
   }
@@ -64,7 +63,9 @@ Brain.prototype.leaveModule = function(phrase, cbk) {
 
 Brain.prototype.think = function(phrase) {
   const moduleName = this.states[Brain.lang].current;
-  return this.ear.listen(Brain.lang, this.states[Brain.lang].transitions()).then(phrase => {
+  const keywords = this.states[Brain.lang].transitions();
+  console.log('\x1b[1mBrain understands:', keywords);
+  return this.ear.listen(Brain.lang, keywords).then(phrase => {
     const currentState = this.states[Brain.lang].current;
     // try all combinations
     let found = false;

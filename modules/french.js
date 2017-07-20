@@ -18,7 +18,7 @@ module.exports = {
   },
   enter: (lang) => {
     return new Promise((resolve, reject) => {
-      Brain.lang = 'fr';
+      Brain.lang = 'fr-FR';
       this.mouth.say('Oui je parle francais!')
       .then(() => {
         resolve();

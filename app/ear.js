@@ -12,8 +12,8 @@ module.exports = Ear;
  * args from the context of config (package.json > marcel > *)
  */
 Ear.prototype.buildCmd = function(lang, keywords) {
-  const cmd = `python -u listen.py -lang ${ lang } -k "${ keywords.join('" "') }"`;
-  console.log('command:', cmd);
+  const cmd = `python -u listen.py -lang ${ lang } ${ keywords ? '-k "' + keywords.join('" "') + '"' : '' }`;
+  console.log('\x1b[2mcommand:', cmd);
   return cmd;
 };
 Ear.prototype.listen = function(lang, transitions) {
@@ -32,13 +32,13 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
   //   console.log('stdout  END ');
   // });
   cmd.stderr.on('data', data => {
-    console.log('stderr: ' + data.toString());
+    console.error('\x1b[2mpython error: ' + data.split('\n').filter(str => str.trim() != '').join('\n\x1b[2mpython error: '));
     //reject(data.toString());
   });
   cmd.on('exit', code => {
-    console.log('child process exited with code ' + code.toString());
+    console.log('\x1b[2mchild process exited with code ' + code.toString());
     if(code != 0) {
-      console.error('restart listener');
+      console.log('\x1b[2mrestart listener');
       this.doListen(lang, transitions, resolve, reject);
       // resolve();
     }
@@ -47,7 +47,7 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
   // say it out loud
   cmd.stdout.on('data', output => {
     const data = output.split('\n').join(' ').trim().toLowerCase();
-    console.log('>>>>>>>>>>>>> ', data);
+    console.log('\x1b[1mEar heard: ', data);
     if(['go_speak', 'wait_speak'].indexOf(data) >= 0) {
       //process.stdout.write('\x07');
       //this.beep();

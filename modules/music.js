@@ -11,7 +11,7 @@ module.exports = {
       "fr-FR": [
         { "name": "musique", "from": "active", "to": "music" },
         { "name": "stop", "from": "music", "to": "passive" },
-        { "name": "arrete", "from": "music", "to": "passive" },
+        { "name": "arrête", "from": "music", "to": "passive" },
       ],
     };
   },
@@ -22,16 +22,14 @@ module.exports = {
   },
   enter: (lang) => {
     return new Promise((resolve, reject) => {
-      console.log('Module enter', lang);
       this.mouth.say('What do you want to listen?')
       .then(() => {
         this.ear.listen(lang)
         .then(phrase => {
-          console.log('heard', phrase);
-          const cmd = exec(`DISPLAY=:0 python node_modules/marcel_tube/yt --q "${phrase}"`);
+          const cmdStr = `DISPLAY=:0 python node_modules/marcel_tube/yt --q "${phrase}"`;
+          console.log('command:', cmdStr);
+          const cmd = exec(cmdStr);
           cmd.stderr.on('data', function (data) {
-            cmd.kill();
-            const cmd2 = exec(`python node_modules/marcel_tube/yt --q "${phrase}"`);
             console.log('stderr: ' + data.toString());
           });
           this.mouth.say('searching for ' + phrase)
@@ -44,7 +42,6 @@ module.exports = {
   },
   leave: (lang) => {
     return new Promise((resolve, reject) => {
-      console.log('Module leave', lang);
       this.mouth.say('Stopping music')
       .then(() => {
         resolve();

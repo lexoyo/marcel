@@ -13,7 +13,7 @@ module.exports = Mouth;
 
 Mouth.prototype.say = function(phrase, cbk) {
   return new Promise((resolve, reject) => {
-    console.log('Mouth says:', phrase);
+    console.log('\x1b[1mMouth says:', phrase);
     var Speaker = require('speaker');
     var wav = require('wav');
     var reader = new wav.Reader();
