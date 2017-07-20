@@ -92,9 +92,6 @@ Brain.prototype.think = function(phrase) {
         });
       }
     }
-    else {
-      resolve();
-    }
   })
 };
 

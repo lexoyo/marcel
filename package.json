@@ -17,7 +17,11 @@
         "amplitude": 90
       }
     },
-    "ear": {}
+    "ear": {
+      "engine": "sphinx",
+      "other engine value": "sphinx",
+      "other engine value": "google"
+    }
   },
   "scripts": {
     "postinstall": "npm run build && ./install-french.sh",

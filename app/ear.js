@@ -2,8 +2,7 @@ const config = require('../package.json').marcel;
 const exec = require('child_process').exec;
 
 const Ear = function(config) {
-  this.context = config.ear.context;
-  this.paths = config.ear.paths;
+  this.config = config.ear;
 };
 module.exports = Ear;
 
@@ -12,7 +11,7 @@ module.exports = Ear;
  * args from the context of config (package.json > marcel > *)
  */
 Ear.prototype.buildCmd = function(lang, keywords) {
-  const cmd = `python -u listen.py -lang ${ lang } ${ keywords ? '-k "' + keywords.join('" "') + '"' : '' }`;
+  const cmd = `python -u listen.py -engine ${ this.config.engine } -lang ${ lang } ${ keywords ? '-k "' + keywords.join('" "') + '"' : '' }`;
   console.log('\x1b[2mcommand:', cmd);
   return cmd;
 };
