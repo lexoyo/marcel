@@ -28,6 +28,7 @@ on a raspberry:
 $ sudo apt-get install gcc libasound2 libasound2-dev
 $ sudo apt-get install mpg321
 $ sudo apt-get install --yes wget unzip # this is for install-french script
+$ sudo apt-get install libpulse-dev # this is for pocketshpinx
 $ pip install SpeechRecognition
 ```
 
