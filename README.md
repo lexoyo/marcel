@@ -15,6 +15,18 @@ $ npm start raspi release
 
 You probably need to [update nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 
+### python
+
+on fedora, you will need to upgrade to python3 and have these dependencies
+```
+$ sudo dnf install python3-devel && pip3 install --force-reinstall --upgrade pip
+$ sudo dnf install portaudio-devel
+$ sudo dnf install swig
+$ pip install pocketsphinx
+$ pip install SpeechRecognition
+$ pip install PyAudio
+```
+
 ### speak
 
 on fedora
