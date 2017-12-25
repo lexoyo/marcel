@@ -84,14 +84,14 @@ Brain.prototype.think = function(phrase) {
         }
       }
     }
-    if(currentState !== this.states[Brain.lang].current) {
-      //console.log('change state', this.module, currentState, this.states[Brain.lang].current);
+    // if(currentState !== this.states[Brain.lang].current) {
+      console.log('change state', this.module, currentState, this.states[Brain.lang].current);
       if(this.module) {
 	return new Promise((resolve, reject) => {
           this.leaveModule(segmentFound, () => this.enterModule(segmentFound, () => resolve()));
         });
       }
-    }
+    // }
   })
 };
 
