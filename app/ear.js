@@ -53,7 +53,7 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
   // say it out loud
   cmd.stdout.on('data', output => {
     const data = output.toString().split('\n').join(' ').trim().toLowerCase();
-    console.log('\x1b[1mEar heard: ', data);
+    console.log('\x1b[1mEar heard: ', data, transitions);
     if(['go_speak', 'wait_speak'].indexOf(data) >= 0) {
       //process.stdout.write('\x07');
       //this.beep();
