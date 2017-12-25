@@ -48,6 +48,13 @@ $ pip install SpeechRecognition
 
 See here [how to install other languages](https://github.com/Uberi/speech_recognition/blob/master/reference/pocketsphinx.rst#installing-other-languages)
 
+If you want to use google instead of Sphinx, you will need to edit package.json config and install google-api-python-client like this:
+
+```
+$ pip install google-api-python-client
+```
+Also create an app in google cloud platform, activate the speech API and create a service account key, which will give you a json file. Put the json file as key.json at the root of Marcel's directory.
+
 ### notes
 
 Needs pocketsphinx installed and configured, which is not an easy task.

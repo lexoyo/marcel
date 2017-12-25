@@ -19,7 +19,7 @@
     },
     "ear": {
       "engine": "sphinx",
-      "other engine value": "sphinx",
+      "example engine value": "sphinx",
       "other engine value": "google"
     }
   },
