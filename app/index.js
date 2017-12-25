@@ -18,5 +18,3 @@ const config = require('../package.json').marcel;
 const app = new App(config);
 app.start();
 
-setTimeout(() => {
-}, 100000)

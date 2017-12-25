@@ -3,6 +3,9 @@ const exec = require('child_process').exec;
 
 const Ear = function(config) {
   this.config = config.ear;
+  this.calibrationDone = false;
+  // redo calibration once in a while
+  setInterval(() => this.calibrationDone = false, 30000);
 };
 module.exports = Ear;
 
@@ -10,8 +13,8 @@ module.exports = Ear;
  * make an array of npm command and
  * args from the context of config (package.json > marcel > *)
  */
-Ear.prototype.buildCmd = function(lang, keywords) {
-  const cmd = `python -u listen.py -engine ${ this.config.engine } -lang ${ lang } ${ keywords ? '-k "' + keywords.join('" "') + '"' : '' }`;
+Ear.prototype.buildCmd = function(lang, keywords, calibration) {
+  const cmd = `python -u listen.py -engine ${ this.config.engine } -lang ${ lang } ${ keywords ? '-k "' + keywords.join('" "') + '"' : '' } ${ calibration ? '-calibration ' : '' }`;
   console.log('\x1b[2mcommand:', cmd);
   return cmd;
 };
@@ -21,7 +24,8 @@ Ear.prototype.listen = function(lang, transitions) {
 
 Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
   // start process with listen python program
-  const cmdStr = this.buildCmd(lang, transitions);
+  const cmdStr = this.buildCmd(lang, transitions, !this.calibrationDone);
+  this.calibrationDone = true;
   const cmd = exec(cmdStr);
 
   // cmd.stdout.on('data', function (data) {

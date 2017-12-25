@@ -14,6 +14,7 @@ parser.add_argument('-a', help='audio file path')
 parser.add_argument('-lang', help='language to use, i.e. fr-FR or en-EN')
 parser.add_argument('-engine', help='engine to use for stt, i.e. sphinx or google')
 parser.add_argument('-k', nargs='+', help='phrases to look for')
+parser.add_argument('-calibration', action='store_true', help='do calibration to adjust for ambient noise')
 # parser.add_argument('-g', help='grammar file with phrases to look for')
 
 args = parser.parse_args()
@@ -34,6 +35,8 @@ else:
         keywords.append(phrase)
     # list(map(print, keywords))
 
+doCalibration = args.calibration
+
 engine = 'sphinx'
 if args.engine is not None:
     engine = args.engine
@@ -41,8 +44,9 @@ if args.engine is not None:
 r = sr.Recognizer()
 if args.a is None:
     with sr.Microphone() as source:
-        print("WAIT_SPEAK");
-        r.adjust_for_ambient_noise(source)  # we only need to calibrate once, before we start listening
+        if(doCalibration == True):
+            print("WAIT_SPEAK");
+            r.adjust_for_ambient_noise(source)  # we only need to calibrate once, before we start listening
         print("GO_SPEAK");
         audio = r.listen(source)
 else:
