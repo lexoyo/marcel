@@ -1,7 +1,10 @@
 const StateMachine = require("javascript-state-machine");
+const exec = require('child_process').exec;
 const ModuleManager = require('./module-manager');
 const Ear = require('./ear');
 const Mouth = require('./mouth');
+
+const SWITCH_OFF_DELAY = 10000;
 
 const Brain = function(config) {
   // init io
@@ -21,11 +24,12 @@ const Brain = function(config) {
   // initial lang
   Brain.lang = config.brain.initialLang;
 
+  this.switchedOff = false;
+  this.switchInterval = null;
+
   // init current module
   this.enterModule(() => {});
 };
-
-module.exports = Brain;
 
 Brain.prototype.enterModule = function(phrase, cbk) {
   const moduleName = this.states[Brain.lang].current;
@@ -33,7 +37,9 @@ Brain.prototype.enterModule = function(phrase, cbk) {
   this.module = module;
   if(module) {
     //console.log('enter module', moduleName);
-    module.init(this.ear, this.mouth, this.states[Brain.lang]);
+    // FIXME: why do this all the time? should be in the factory
+    // FIXME: we could pass only this
+    module.init(this.ear, this.mouth, this.states[Brain.lang], this);
     module.enter(Brain.lang)
       .then(cbk)
       .catch((e) => {
@@ -61,11 +67,29 @@ Brain.prototype.leaveModule = function(phrase, cbk) {
   }
 };
 
+Brain.prototype.retryThink = function(phrase, cbk) {
+  setTimeout(() => {
+    // retry
+    if(this.switchedOff) {
+      this.retryThink(phrase, cbk);
+    }
+    else {
+      cbk();
+    }
+  }, 1000);
+};
+
 Brain.prototype.think = function(phrase) {
+  if(this.switchedOff) {
+    return new Promise((resolve, reject) => {
+      this.retryThink(phrase, () => resolve());
+    });
+  }
   const moduleName = this.states[Brain.lang].current;
   const keywords = this.states[Brain.lang].transitions();
   console.log('\x1b[1mBrain understands:', keywords);
   return this.ear.listen(Brain.lang, keywords).then(phrase => {
+    if(this.switchedOff) return;
     const currentState = this.states[Brain.lang].current;
     // try all combinations
     let found = false;
@@ -85,7 +109,7 @@ Brain.prototype.think = function(phrase) {
       }
     }
     // if(currentState !== this.states[Brain.lang].current) {
-      console.log('change state', this.module, currentState, this.states[Brain.lang].current);
+      console.log('change state', currentState, this.states[Brain.lang].current);
       if(this.module) {
 	return new Promise((resolve, reject) => {
           this.leaveModule(segmentFound, () => this.enterModule(segmentFound, () => resolve()));
@@ -94,4 +118,56 @@ Brain.prototype.think = function(phrase) {
     // }
   })
 };
+
+// Call this when a sound is detected
+Brain.prototype.postponeSwitchOff = function() {
+  if(this.switchInterval) {
+    this.enablseSleepMode(false);
+    this.enablseSleepMode(true);
+  }
+};
+
+Brain.prototype.enableSleepMode = function(enable) {
+  console.log('Sleep mode enabled:', enable);
+  if(this.switchInterval == null && enable === true) {
+    this.switchInterval = setTimeout(() => {
+      this.switchInterval = null;
+      this.switchOff();
+    }, SWITCH_OFF_DELAY);
+  }
+  else if(this.switchInterval != null && enable === false) {
+    clearTimeout(this.switchInterval);
+    this.switchInterval = null;
+  }
+};
+
+Brain.prototype.switchOff = function() {
+  console.log('SWITCHING OFF');
+  if(this.switchedOff === false) {
+    // switch off
+    if(this.ear.stop) {
+      this.ear.stop();
+      this.ear.stop = null;
+    }
+  }
+  this.switchedOff = true;
+
+	exec('./switch-monitor-off.sh', function(error, stdout, stderr) {
+	  console.log('shell script called', error);
+  });
+};
+
+Brain.prototype.switchOn = function() {
+  console.log('SWITCHING ON');
+  if(this.switchedOff === true) {
+    // switch on
+  }
+
+	exec('./switch-monitor-on.sh', function(error, stdout, stderr) {
+	  console.log('shell script called', error);
+  });
+this.switchedOff = false;
+}
+
+module.exports = Brain;
 
