@@ -9,4 +9,5 @@ lang
 *.tgz
 *.gz
 listen
+input.wav
 

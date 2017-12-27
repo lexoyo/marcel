@@ -2,6 +2,18 @@
 
 a bot which listens and says non sense in several languages
 
+## Current state
+
+Marcel listens to you in French or in English but answers in English. To do so, he is able to use Sphinx (offline) or Google voice API (but there is [a bug described for Google voice in lib, so for now Sphinx is the only option](https://github.com/Uberi/speech_recognition/issues/298#issuecomment-351579430)).
+
+Once all the dependencies installed (easy on a raspberry, more dependencies on other distro, see bellow) Marcel will install French automatically.
+
+Marcel is made of several utility classes used to listen, talk and understand: Brain, ear, mouth classes. You can easily write modules and use these classes to automate your life or have as much fun with Marcel as I do, see [the modules in this folder, each .js file in this folder is loaded as a module and describes itself](./modules/).
+
+[Marcel's config is in his package.json](./package.json)
+
+## Use
+
 ```
 $ npm i
 $ npm start linux release

@@ -3,6 +3,7 @@ const exec = require('child_process').exec;
 const ModuleManager = require('./module-manager');
 const Ear = require('./ear');
 const Mouth = require('./mouth');
+const utils = require('./utils.js');
 
 const SWITCH_OFF_DELAY = 10000;
 
@@ -26,6 +27,7 @@ const Brain = function(config) {
 
   this.switchedOff = false;
   this.switchInterval = null;
+  this.switchOn();
 
   // init current module
   this.enterModule(() => {});
@@ -121,10 +123,12 @@ Brain.prototype.think = function(phrase) {
 
 // Call this when a sound is detected
 Brain.prototype.postponeSwitchOff = function() {
-  if(this.switchInterval) {
-    this.enablseSleepMode(false);
-    this.enablseSleepMode(true);
-  }
+  console.log('postpone switch off');
+  this.switchOn();
+  // if(this.switchInterval) {
+    this.enableSleepMode(false);
+    this.enableSleepMode(true);
+  // }
 };
 
 Brain.prototype.enableSleepMode = function(enable) {
@@ -142,13 +146,19 @@ Brain.prototype.enableSleepMode = function(enable) {
 };
 
 Brain.prototype.switchOff = function() {
-  console.log('SWITCHING OFF');
   if(this.switchedOff === false) {
+    console.log('SWITCHING OFF');
     // switch off
     if(this.ear.stop) {
       this.ear.stop();
       this.ear.stop = null;
     }
+    utils.play('switchoff.wav', () => {
+      // detect claps to wakeup or postpone sleep
+      this.ear.startClap(() => {
+        this.postponeSwitchOff();
+      });
+    });
   }
   this.switchedOff = true;
 
@@ -158,15 +168,17 @@ Brain.prototype.switchOff = function() {
 };
 
 Brain.prototype.switchOn = function() {
-  console.log('SWITCHING ON');
   if(this.switchedOff === true) {
-    // switch on
+    console.log('SWITCHING ON');
+    this.ear.stopClap();
+    utils.play('switchoff.wav', () => {
+    });
   }
 
 	exec('./switch-monitor-on.sh', function(error, stdout, stderr) {
 	  console.log('shell script called', error);
   });
-this.switchedOff = false;
+  this.switchedOff = false;
 }
 
 module.exports = Brain;

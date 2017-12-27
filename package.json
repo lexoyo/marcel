@@ -25,7 +25,7 @@
   },
   "scripts": {
     "postinstall": "npm run build && ./install-french.sh",
-    "start": "pm2 start app/ --watch --name marcel -- release",
+    "start": "pm2 start app/ --watch app --name marcel -- release",
     "stop": "pm2 stop app/ --watch --name marcel",
     "logs": "pm2 logs",
     "build": "npm run init:modules && npm run fix:mespeak",
@@ -35,6 +35,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clap-detector": "^0.4.1",
     "javascript-state-machine": "^2.3.5",
     "make-prop-stream": "^1.0.0",
     "marcel_tube": "git://github.com/evayse/marcel_tube",
