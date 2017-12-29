@@ -149,10 +149,8 @@ Brain.prototype.switchOff = function() {
   if(this.switchedOff === false) {
     console.log('SWITCHING OFF');
     // switch off
-    if(this.ear.stop) {
-      this.ear.stop();
-      this.ear.stop = null;
-    }
+    this.ear.stop();
+
     utils.play('switchoff.wav', () => {
       // detect claps to wakeup or postpone sleep
       this.ear.startClap(() => {

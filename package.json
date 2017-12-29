@@ -18,6 +18,9 @@
       }
     },
     "ear": {
+      "source": "mic",
+      "other source": "./tmp.txt",
+      "default source": "mic",
       "engine": "sphinx",
       "example engine value": "sphinx",
       "other engine value": "google"

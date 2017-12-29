@@ -56,8 +56,9 @@ ModuleManager.prototype.createModules = function (opt_moduleName) {
           const module = require(path.resolve(dirPath, fileName));
           if(module.isModule) {
             console.log('found module', fileName);
+            module.fileName = fileName; // for errors
             modules.push(module);
-          } 
+          }
           //else console.log('not a module', fileName);
         }
         catch(e) {
@@ -73,10 +74,24 @@ ModuleManager.prototype.createModules = function (opt_moduleName) {
  * create files in lang folders
  */
 ModuleManager.prototype.createStates = function () {
+  function check(module, ...args) {
+    args.forEach(str => {
+      if(str.toLowerCase() != str) {
+        console.error(`The states names have to be lower case in "${module.fileName}": "${str}"`);
+        throw 'Error in module, see error above';
+      }
+    });
+  }
   const states = {};
   this.createModules().forEach(module => {
     const moduleStates = module.getStates();
     for(langName in moduleStates) {
+      // check modules states
+      moduleStates[langName].forEach(item => {
+        // names and states have to be lower case
+        check(module, item.name, item.to, item.from);
+      });
+
       states[langName] = states[langName] || [];
       states[langName] = states[langName].concat(moduleStates[langName]);
     }
@@ -91,7 +106,6 @@ ModuleManager.prototype.createStates = function () {
     fs.mkdirSync(langDir);
   }
 
-  // TODO: move this to module-manager.js ?
   for(langName in states) {
     const currentLangDir = path.resolve(langDir, langName);
     if(!fs.existsSync(currentLangDir)) {
