@@ -21,31 +21,21 @@ module.exports = {
     this.state = state;
   },
   enter: (lang) => {
-    return new Promise((resolve, reject) => {
-      this.mouth.say('What do you want to listen?')
-      .then(() => {
-        this.ear.listen(lang)
-        .then(phrase => {
-          const cmdStr = `DISPLAY=:0 python node_modules/marcel_tube/yt --q "${phrase}"`;
-          console.log('command:', cmdStr);
-          const cmd = exec(cmdStr);
-          cmd.stderr.on('data', function (data) {
-            console.log('stderr: ' + data.toString());
-          });
-          this.mouth.say('searching for ' + phrase)
-          .then(() => {
-            resolve();
-          });
-        }).catch(reject);
-      }).catch(reject);
+    return this.mouth.say('What do you want to listen?')
+    .then(() => {
+      return this.ear.listen(lang)
+    })
+    .then(phrase => {
+      const cmdStr = `DISPLAY=:0 python node_modules/marcel_tube/yt --q "${phrase}"`;
+      console.log('command:', cmdStr);
+      const cmd = exec(cmdStr);
+      cmd.stderr.on('data', function (data) {
+        console.log('stderr: ' + data.toString());
+      });
+      return this.mouth.say('searching for ' + phrase);
     });
   },
   leave: (lang) => {
-    return new Promise((resolve, reject) => {
-      this.mouth.say('Stopping music')
-      .then(() => {
-        resolve();
-      }).catch(reject);
-    });
+    return this.mouth.say('Stopping music');
   }
 }

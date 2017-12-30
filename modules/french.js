@@ -17,17 +17,10 @@ module.exports = {
     this.state = state;
   },
   enter: (lang) => {
-    return new Promise((resolve, reject) => {
-      Brain.lang = 'fr-FR';
-      this.mouth.say('Oui je parle francais!')
-      .then(() => {
-        resolve();
-      }).catch(reject);
-    });
+    Brain.lang = 'fr-FR';
+    return this.mouth.say('Oui je parle francais!');
   },
   leave: (lang) => {
-    return new Promise((resolve, reject) => {
-      resolve();
-    });
+    return Promise.resolve();
   }
 }

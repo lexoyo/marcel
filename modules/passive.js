@@ -19,25 +19,14 @@ class Module {
     this.mouth = mouth;
     this.state = state;
     this.brain = brain;
-    this.switchInterval = null;
   }
   enter(lang) {
     this.brain.enableSleepMode(true);
-    return new Promise((resolve, reject) => {
-      this.mouth.say('Marcel\'s sleeping!')
-      .then(() => {
-        resolve();
-      }).catch(reject);
-    });
+    return this.mouth.say('Marcel\'s sleeping!');
   }
   leave(lang) {
     this.brain.enableSleepMode(false);
-    return new Promise((resolve, reject) => {
-      this.mouth.say('Yes, my name is Marcel!')
-      .then(() => {
-        resolve();
-      }).catch(reject);
-    });
+    return this.mouth.say('Yes, my name is Marcel!');
   }
 }
 
