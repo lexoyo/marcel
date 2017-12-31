@@ -16,11 +16,7 @@ Marcel is made of several utility classes used to listen, talk and understand: B
 
 ```
 $ npm i
-$ npm start linux release
-```
-or
-```
-$ npm start raspi release
+$ npm start
 ```
 
 ## requirements
@@ -73,6 +69,7 @@ Needs pocketsphinx installed and configured, which is not an easy task.
 
 Specific to raspberry:
 
+* [Configuring ALSA Audio output on Analog and HDMI of Raspberry Pi](http://karuppuswamy.com/wordpress/2015/08/15/configuring-alsa-audio-output-on-analog-and-hdmi-of-raspberry-pi/)
 * [the instructions for raspberry pi](http://cmusphinx.sourceforge.net/wiki/raspberrypi)
 * [find the missing file alsa-base.conf](http://superuser.com/questions/989385/alsa-base-conf-missing-in-new-raspberry-pi-raspbian-jesse) (use the comment about `/lib/modprobe.d/aliases.conf`)
 * [this post about trouble shooting mic/audio](https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=37262) and [this one too](http://raspberrypi.stackexchange.com/questions/40831/how-do-i-configure-my-sound-for-jasper-on-raspbian-jessie)
@@ -80,8 +77,6 @@ Specific to raspberry:
 Use this tool to chose words to be recognized (optional but much more efficient)
 * http://www.speech.cs.cmu.edu/tools/lmtool-new.html
 * also see http://www.speech.cs.cmu.edu/sphinx/models/
-
-Then use `npm run listen:sentences` in `index.js`
 
 Here are foreign language packs:
 http://www.politepix.com/languages
@@ -106,3 +101,4 @@ sphinx_lm_convert -i model.lm -o model.lm.bin
 * play radio
 * give the time, set timer
 * search [duckduckgo instant answers](https://duckduckgo.com/api)
+
