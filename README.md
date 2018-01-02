@@ -12,16 +12,19 @@ Marcel is made of several utility classes used to listen, talk and understand: B
 
 [Marcel's config is in his package.json](./package.json)
 
-## Use
+## Install and start
 
+You need to [install nodejs and npm](http://www.instructables.com/id/Install-Nodejs-and-Npm-on-Raspberry-Pi/):
+```sh
+$ wget https://nodejs.org/dist/v8.9.0/node-v8.9.0-linux-armv6l.tar.gz
+$ tar -xzf node-v8.9.0-linux-armv6l.tar.gz
+$ cd node-v8.9.0-linux-armv6l/
+$ sudo cp -R * /usr/local/
+$ node -v
+v8.9.0
+$ npm -v
+5.5.1
 ```
-$ npm i
-$ npm start
-```
-
-## requirements
-
-You probably need to [update nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 
 ### python
 
@@ -45,12 +48,42 @@ $ pip install SpeechRecognition
 
 on a raspberry:
 ```
-$ sudo apt-get install gcc libasound2 libasound2-dev
-$ sudo apt-get install mpg321
-$ sudo apt-get install --yes wget unzip # this is for install-french script
-$ sudo apt-get install libpulse-dev # this is for pocketshpinx
+$ sudo apt-get install -y gcc libasound2 libasound2-dev mpg321 python-dev bison portaudio19-dev
+$ sudo apt-get install -y wget unzip # this is for install-french script
+$ sudo apt-get install -y libpulse-dev # this is for pocketshpinx
+$ sudo apt-get remove python-pip # comes from jasper install
+$ sudo easy_install pip # comes from jasper install
+$ sudo apt-get install festival festvox-kallpc16k # for speech, needs reboot
+$ sudo apt-get install -y swig
+$ sudo apt-get install -y sox # for clap detection
+$ pip install pocketsphinx
 $ pip install SpeechRecognition
+$ pip install PyAudio
 ```
+Then reboot.
+
+This can be useful, comes from [Jasper install instructions](http://jasperproject.github.io/documentation/installation/)
+* Plug in your USB microphone. Let’s create an ALSA configuration file `/lib/modprobe.d/marcel.conf` and paste this into it:
+```
+# Load USB audio before the internal soundcard
+options snd_usb_audio index=0
+options snd_bcm2835 index=1
+
+# Make sure the sound cards are ordered the correct way in ALSA
+options snd slots=snd_usb_audio,snd_bcm2835
+```
+* restart your Pi
+* test recording with `arecord temp.wav`
+* Make sure you have speakers or headphones connected to the audio jack of your Pi. You can play back the recorded file: `aplay -D hw:1,0 temp.wav`
+
+### ready to start Marcel
+
+```
+$ npm i
+$ npm start
+```
+
+The instructions bellow are optional
 
 ### listen
 
