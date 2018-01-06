@@ -21,6 +21,7 @@
       "source": "mic",
       "other source": "./tmp.txt",
       "default source": "mic",
+      "audioSource": "alsa default",
       "engine": "sphinx",
       "example engine value": "sphinx",
       "other engine value": "google"
@@ -38,7 +39,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "clap-detector": "^0.4.1",
     "javascript-state-machine": "^2.3.5",
     "make-prop-stream": "^1.0.0",
     "marcel_tube": "git://github.com/evayse/marcel_tube",

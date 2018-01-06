@@ -1,6 +1,5 @@
 const config = require('../package.json').marcel;
 const exec = require('child_process').exec;
-const clapDetector = require('clap-detector');
 const utils = require('./utils.js');
 
 const Ear = function(config) {
@@ -14,12 +13,6 @@ const Ear = function(config) {
   if(this.source === 'mic') {
     // redo calibration once in a while
     setInterval(() => this.calibrationDone = false, 30000);
-    // Start clap detection
-    const clapConfig = {
-      AUDIO_SOURCE: 'alsa default',
-    };
-    clapDetector.start(clapConfig);
-    this.stopClap();
   }
   else {
     // Debug mode!!
@@ -43,23 +36,6 @@ const Ear = function(config) {
       }
     }, 500);
   }
-};
-
-Ear.prototype.stopClap = function() {
-  console.log('clap detector pause');
-  clapDetector.pause();
-};
-
-Ear.prototype.startClap = function(onClap) {
-  // Store for the case where we read from file not mic
-  this.onClap = onClap;
-	// Register on clap event
-	clapDetector.onClap((history) => {
-		console.log('clap! ');
-		if(onClap) onClap();
-	});
-  console.log('clap detector resume');
-  clapDetector.resume();
 };
 
 Ear.prototype.stop = function() {
@@ -160,6 +136,33 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
     }
   });
 };
+Ear.prototype.stopClap = function(cbk) {
+  this.onClap = null;
+}
+Ear.prototype.startClap = function(onClap) {
+  console.log('clap detector start');
+  const filename = __dirname + '/.sox.wav';
+  let body = '';
+
+  this.onClap = onClap;
+
+  // Listen for sound
+  var cmd = 'sox -t ' + this.config.audioSource + ' ' + filename; // + ' silence 1 0.0001 '  + CONFIG.DETECTION_PERCENTAGE_START + ' 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_END + ' −−no−show−progress stat';
+ 
+  var child = exec(cmd);
+
+  child.stderr.on("data", buf => { 
+    console.log('clap buffer', buf.toString());
+    body += buf; 
+  });
+
+  child.on("exit", () => {
+    console.log('clap exit', body);
+    if(this.onClap) this.onClap();
+
+  });
+}
+
 
 module.exports = Ear;
 
