@@ -109,7 +109,7 @@ Ear.prototype.doListen = function(lang, transitions, resolve, reject) {
           return;
         }
 
-        console.log('\x1b[2mchild process exited with code ' + code.toString());
+        console.log('\x1b[2mchild process exited with code ', code);
         if(code != 0) {
           console.log('\x1b[2mrestart listener');
           this.doListen(lang, transitions, resolve, reject);
@@ -140,24 +140,25 @@ Ear.prototype.stopClap = function(cbk) {
   this.onClap = null;
 }
 Ear.prototype.startClap = function(onClap) {
-  console.log('clap detector start');
   const filename = __dirname + '/.sox.wav';
   let body = '';
 
   this.onClap = onClap;
 
   // Listen for sound
-  var cmd = 'sox -t ' + this.config.audioSource + ' ' + filename; // + ' silence 1 0.0001 '  + CONFIG.DETECTION_PERCENTAGE_START + ' 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_END + ' −−no−show−progress stat';
+  var cmd = 'sox -t ' + this.config.audioSource + ' ' + filename + ' silence 1 0.0001 1% 1 0.1 1%'; // + ' silence 1 0.0001 '  + CONFIG.DETECTION_PERCENTAGE_START + ' 1 0.1 ' + CONFIG.DETECTION_PERCENTAGE_END + ' −−no−show−progress stat';
  
+  console.log('clap detector start', cmd);
   var child = exec(cmd);
 
   child.stderr.on("data", buf => { 
-    console.log('clap buffer', buf.toString());
+    console.log('clap buffer', buf);
     body += buf; 
   });
 
   child.on("exit", () => {
     console.log('clap exit', body);
+    child.kill('SIGINT');
     if(this.onClap) this.onClap();
 
   });
